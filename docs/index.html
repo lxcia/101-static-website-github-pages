@@ -31,6 +31,30 @@ Enim diam vulputate ut pharetra sit amet aliquam. Vehicula ipsum a arcu cursus v
     <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam. Blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque. Quam pellentesque nec nam aliquam. Tempor orci dapibus ultrices in iaculis nunc sed augue. Non sodales neque sodales ut. Vitae justo eget magna fermentum iaculis. Elementum curabitur vitae nunc sed velit. Dignissim enim sit amet venenatis urna cursus eget nunc. Sem viverra aliquet eget sit amet tellus cras adipiscing enim. Turpis in eu mi bibendum. Etiam non quam lacus suspendisse faucibus. Massa id neque aliquam vestibulum morbi. Egestas maecenas pharetra convallis posuere morbi. Malesuada nunc vel risus commodo viverra maecenas accumsan lacus. Felis donec et odio pellentesque diam. Quis varius quam quisque id.</p>
 
 
+
+    <!-- Buttons for different animations -->
+    <button onclick="loadAnimation('animation1.html')">Animation 1</button>
+    <button onclick="loadAnimation('animation2.html')">Animation 2</button>
+    <button onclick="loadAnimation('animation3.html')">Animation 3</button>
+
+    <!-- Placeholder for the animation content -->
+    <div id="animation-container"></div>
+
+    <script>
+        function loadAnimation(animationFile) {
+            // Fetch the content of the selected animation file
+            fetch(animationFile)
+                .then(response => response.text())
+                .then(data => {
+                    // Display the content in the animation container
+                    document.getElementById('animation-container').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading animation:', error));
+        }
+    </script>
+    
+    <iframe src="animation1.html" width="100%" height="540px" style="border: none; margin-bottom: 0; padding-bottom: 0;"></iframe>
+
     <h1 style="font-family: 'Space Mono'; font-size: 24px; color: #c39999; margin-left: 40px;">methodology</h1>
     <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam. Blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque. Quam pellentesque nec nam aliquam. Tempor orci dapibus ultrices in iaculis nunc sed augue. Non sodales neque sodales ut. Vitae justo eget magna fermentum iaculis. Elementum curabitur vitae nunc sed velit. Dignissim enim sit amet venenatis urna cursus eget nunc. Sem viverra aliquet eget sit amet tellus cras adipiscing enim. Turpis in eu mi bibendum. Etiam non quam lacus suspendisse faucibus. Massa id neque aliquam vestibulum morbi. Egestas maecenas pharetra convallis posuere morbi. Malesuada nunc vel risus commodo viverra maecenas accumsan lacus. Felis donec et odio pellentesque diam. Quis varius quam quisque id.
 
@@ -38,7 +62,6 @@ Sit amet consectetur adipiscing elit pellentesque habitant morbi tristique. Non 
 
 Enim diam vulputate ut pharetra sit amet aliquam. Vehicula ipsum a arcu cursus vitae congue mauris rhoncus. Fringilla urna porttitor rhoncus dolor purus non enim. Amet nisl suscipit adipiscing bibendum est ultricies integer. Enim tortor at auctor urna nunc. Porta lorem mollis aliquam ut porttitor leo a diam sollicitudin. Mollis nunc sed id semper risus in hendrerit. Et malesuada fames ac turpis egestas integer. Enim neque volutpat ac tincidunt vitae semper quis lectus. Urna porttitor rhoncus dolor purus non enim. Odio facilisis mauris sit amet massa. Morbi enim nunc faucibus a pellentesque sit amet. Ullamcorper malesuada proin libero nunc. Dui sapien eget mi proin sed libero.</p>
 
-    <iframe src="animation1.html" width="100%" height="540px" style="border: none; margin-bottom: 0; padding-bottom: 0;"></iframe>
 
     <img src="footer2.png" alt="Description of your image" style="width: 100%; display: block; margin: 0 auto;">
 </body>
