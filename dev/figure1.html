@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <title>Linked Scatterplots</title>
+    <style>
+        #dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+        #dataset {
+            appearance: none;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(to bottom, #ffffff, #f2e0e0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            width: 200px;
+            position: relative;
+            font-family: 'Roboto', sans-serif;
+            color: #c39999;
+        }
+        #dataset option {
+            background-color: #fff;
+            color: #333;
+        }
+        #container {
+            position: relative;
+            width: 100%;
+            height: 497px;
+            background-color: #fff0f0;
+        }
+        #scatter1, #scatter2 {
+            width: 47.8%;
+            height: 100%;
+            display: inline-block;
+        }
+        #scatter1 {
+            margin-left: 4%;
+        }
+        #scatter2 {
+            margin-left: 0px;
+        }
+        #dropdown-container {
+            position: absolute;
+            bottom: 25px;
+            left: 25px;
+        }
+        #custom-legend {
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            font-family: 'Roboto', sans-serif;
+            color: #c39999;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .legend-color-box {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        .legend-red {
+            background-color: #f7a583;
+        }
+        .legend-blue {
+            background-color: #666784;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <div id="scatter1"></div>
+    <div id="scatter2"></div>
+    <div id="dropdown-container">
+        <label for="dataset"></label>
+        <select id="dataset" onchange="updateScatterplots()">
+            <option value="data">Select: All Counties</option>
+            <option value="data_urban">Select: Urban Counties</option>
+            <option value="data_rural">Select: Rural Counties</option>
+        </select>
+    </div>
+    <div id="custom-legend">
+        <div class="legend-item">
+            <div class="legend-color-box legend-red"></div>
+            <span>Rural Counties</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color-box legend-blue"></div>
+            <span>Urban Counties</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    // all data
+var data = {
+    'County': ['Calhoun County, AL', 'Tulsa County, OK', 'Saginaw County, MI', 'Hillsborough County, FL', 'Lake County, IN', 'St. Tammany Parish, LA', 'Osceola County, FL', 'Sarpy County, NE', 'Kane County, IL', 'San Juan County, NM', 'Denton County, TX', 'Hays County, TX', 'Davis County, UT', 'Manatee County, FL', 'New Haven County, CT', 'San Mateo County, CA', 'San Luis Obispo County, CA', 'Canyon County, ID', 'Cherokee County, GA', 'Stanislaus County, CA', 'Monterey County, CA', 'Orange County, NY', 'Marin County, CA', 'Lexington County, SC', 'Henry County, GA', 'Orleans Parish, LA', 'Miami-Dade County, FL', 'Pulaski County, AR', 'Brazos County, TX', 'Salt Lake County, UT', 'Clark County, NV', 'Sullivan County, TN', 'Jefferson County, KY', 'Bronx County, NY', 'Lake County, FL', 'Henrico County, VA', 'Yolo County, CA', 'Northampton County, PA', 'Scott County, MN', 'Lane County, OR', 'Tazewell County, IL', 'Clark County, WA', 'Randolph County, NC', 'Ocean County, NJ', 'St. Louis city, MO', 'Marion County, IN', 'El Paso County, TX', 'Gwinnett County, GA', 'Wilson County, TN', 'Craven County, NC', 'Rock County, WI', 'Luzerne County, PA', 'Atlantic County, NJ', 'Denver County, CO', 'Warren County, OH', 'Porter County, IN', 'Durham County, NC', 'Olmsted County, MN', 'Cowlitz County, WA', 'St. Lawrence County, NY', 'Allen County, OH', 'Bibb County, GA', 'Peoria County, IL', 'Fulton County, GA', 'Washington County, AR', 'Coweta County, GA', 'Jefferson County, CO', 'Greene County, MO', 'Johnson County, IA', 'Eaton County, MI', 'Sheboygan County, WI', 'Worcester County, MA', 'Clackamas County, OR', 'Santa Cruz County, CA', 'Boone County, MO', 'Madison County, IL', 'Madison County, IN', 'Livingston Parish, LA', 'Guadalupe County, TX', 'Harris County, TX', 'Allen County, IN', 'Dallas County, TX', 'Benton County, AR', 'Minnehaha County, SD', 'Hudson County, NJ', 'Okaloosa County, FL', 'Arapahoe County, CO', 'Johnson County, TX', 'Brunswick County, NC', 'Howard County, MD', 'Ada County, ID', 'Cumberland County, NC', 'Dutchess County, NY', 'York County, ME', 'Wright County, MN', 'Placer County, CA', 'Muscogee County, GA', 'Lee County, AL', 'Muskegon County, MI', 'Milwaukee County, WI', 'Broward County, FL', 'Delaware County, IN', 'Wayne County, MI', 'Macon County, IL', 'Cuyahoga County, OH', 'Merced County, CA', 'Schuylkill County, PA', 'Monroe County, PA', 'DuPage County, IL', 'Schenectady County, NY', 'Pinal County, AZ', 'Montgomery County, MD', 'Washington County, WI', 'Honolulu County, HI', 'Johnson County, KS', 'Santa Fe County, NM', 'Hartford County, CT', 'Iredell County, NC', 'El Dorado County, CA', 'Cumberland County, PA', 'King County, WA', 'Kitsap County, WA', 'Oswego County, NY', 'Lubbock County, TX', 'Escambia County, FL', 'Charleston County, SC', 'Hardin County, KY', 'Ellis County, TX', 'Frederick County, MD', 'Allegan County, MI', 'Warren County, NJ', 'Ventura County, CA', 'Berrien County, MI', 'Kent County, MI', 'Beaver County, PA', 'Mercer County, PA', 'Kenosha County, WI', 'Adams County, CO', 'Franklin County, MO', 'Chesterfield County, VA', 'Kings County, NY', 'Suffolk County, MA', 'Ulster County, NY', 'Kanawha County, WV', 'Lafayette Parish, LA', 'St. Louis County, MO', 'Bexar County, TX', 'Fond du Lac County, WI', 'St. Lucie County, FL', 'Clay County, MO', 'Berkeley County, SC', 'Lee County, FL', 'Greenville County, SC', 'Monroe County, MI', 'Bell County, TX', 'San Francisco County, CA', 'Berkshire County, MA', 'Yuma County, AZ', 'Hampden County, MA', 'Missoula County, MT', 'Ramsey County, MN', 'Pierce County, WA', 'Hennepin County, MN', 'Solano County, CA', 'Plymouth County, MA', 'Jackson County, OR', 'Centre County, PA', 'Sangamon County, IL', 'Cameron County, TX', 'Horry County, SC', 'Baldwin County, AL', 'Douglas County, NE', 'Camden County, NJ', 'Middlesex County, NJ', 'Wood County, OH', 'Pasco County, FL', 'Lycoming County, PA', 'Harford County, MD', 'Livingston County, MI', 'Oneida County, NY', 'Lancaster County, PA', 'Multnomah County, OR', 'Richland County, SC', 'Jefferson County, TX', 'Montgomery County, TN', 'Jackson County, MO', 'Clarke County, GA', 'Clark County, OH', 'Hamilton County, OH', 'Waukesha County, WI', 'Lebanon County, PA', 'Davidson County, NC', 'Washoe County, NV', 'Union County, NC', 'Harnett County, NC', 'Indian River County, FL', 'Fayette County, PA', 'Bay County, MI', 'Caddo Parish, LA', 'East Baton Rouge Parish, LA', 'Taylor County, TX', 'Fairfield County, OH', 'Leon County, FL', 'Macomb County, MI', 'Ashtabula County, OH', 'Larimer County, CO', 'El Paso County, CO', 'Westmoreland County, PA', 'Hunterdon County, NJ', 'Richmond County, NY', 'Norfolk County, MA', 'Henderson County, NC', 'Ontario County, NY', 'Butte County, CA', 'Kootenai County, ID', 'Calhoun County, MI', 'Linn County, OR', 'Spokane County, WA', 'Wyandotte County, KS', 'Shawnee County, KS', 'Tuscaloosa County, AL', 'Fayette County, KY', 'Baltimore city, MD', 'Tarrant County, TX', 'Essex County, NJ', 'DeKalb County, GA', 'Santa Rosa County, FL', 'York County, PA', 'Lake County, IL', 'Summit County, OH', 'Brevard County, FL', 'Cabarrus County, NC', 'Suffolk County, NY', 'Greene County, OH', 'Los Angeles County, CA', 'Clark County, IN', 'Hampton city, VA', 'Berks County, PA', 'Utah County, UT', 'Marion County, FL', 'Smith County, TX', 'Weld County, CO', 'Delaware County, PA', "St. Mary's County, MD", 'Essex County, MA', 'Hillsborough County, NH', 'Deschutes County, OR', 'Middlesex County, MA', 'Napa County, CA', 'Pueblo County, CO', "Prince George's County, MD", 'Anderson County, SC', 'Davidson County, TN', 'Erie County, PA', 'Genesee County, MI', 'Robeson County, NC', 'Duval County, FL', 'San Bernardino County, CA', 'St. Clair County, MI', 'Chesapeake city, VA', 'Boone County, KY', 'Washington County, PA', 'New York County, NY', 'Richland County, OH', 'Dona Ana County, NM', 'Albany County, NY', 'Black Hawk County, IA', 'Anne Arundel County, MD', 'Strafford County, NH', 'Saratoga County, NY', 'Tompkins County, NY', 'Humboldt County, CA', 'Montgomery County, AL', 'Calcasieu Parish, LA', 'Shelby County, TN', 'Midland County, TX', 'Faulkner County, AR', 'Forsyth County, GA', 'Williamson County, TN', 'Kankakee County, IL', 'Norfolk city, VA', 'Hamilton County, TN', 'Collin County, TX', 'St. Charles County, MO', 'Saline County, AR', 'Richmond County, GA', 'Tippecanoe County, IN', 'Pickens County, SC', 'Fairfax County, VA', 'Gloucester County, NJ', 'Portage County, OH', 'Gaston County, NC', 'Hinds County, MS', 'DeSoto County, MS', 'Etowah County, AL', 'Vanderburgh County, IN', 'Houston County, AL', 'Tom Green County, TX', 'Jackson County, MS', 'St. Clair County, IL', 'Cleveland County, OK', 'Blount County, TN', 'Coconino County, AZ', 'Alamance County, NC', 'LaSalle County, IL', 'Stark County, OH', 'Sumner County, TN', 'McLean County, IL', 'Santa Barbara County, CA', 'Kern County, CA', 'Winnebago County, WI', 'Cochise County, AZ', 'Stafford County, VA', 'Butler County, PA', 'Kent County, RI', 'Litchfield County, CT', 'Dakota County, MN', 'Onslow County, NC', 'Jefferson County, AL', 'Ascension Parish, LA', 'Palm Beach County, FL', 'Pima County, AZ', 'Randall County, TX', 'Will County, IL', 'Clay County, FL', 'Woodbury County, IA', 'Comal County, TX', 'Queens County, NY', 'Brown County, WI', 'Ottawa County, MI', 'Chautauqua County, NY', 'Benton County, WA', 'Windham County, CT', 'Kenton County, KY', 'Orange County, CA', 'Burlington County, NJ', 'Yavapai County, AZ', 'Martin County, FL', 'Lake County, OH', 'Mecklenburg County, NC', 'Tulare County, CA', 'Buncombe County, NC', 'Sonoma County, CA', 'Columbia County, GA', 'Jefferson County, NY', 'Medina County, OH', 'Rockland County, NY', 'Niagara County, NY', 'Rowan County, NC', 'Fresno County, CA', 'McLennan County, TX', 'Jasper County, MO', 'Johnson County, IN', 'Charles County, MD', 'Sebastian County, AR', 'Maricopa County, AZ', 'Canadian County, OK', 'Ingham County, MI', 'Franklin County, OH', 'Prince William County, VA', 'Marathon County, WI', 'Contra Costa County, CA', 'Bartow County, GA', 'Anoka County, MN', 'Lehigh County, PA', 'Wayne County, NC', 'Mohave County, AZ', 'Sarasota County, FL', 'Washtenaw County, MI', 'Cumberland County, ME', 'Elkhart County, IN', 'Chittenden County, VT', 'Merrimack County, NH', 'Madison County, AL', 'Bonneville County, ID', 'Oklahoma County, OK', 'Brazoria County, TX', 'Sedgwick County, KS', 'Linn County, IA', 'Polk County, FL', 'Pennington County, SD', 'Sussex County, DE', 'Union County, NJ', 'Williamson County, TX', 'Riverside County, CA', 'Paulding County, GA', 'New London County, CT', 'Boulder County, CO', 'Montgomery County, PA', 'Hampshire County, MA', 'Androscoggin County, ME', 'Onondaga County, NY', 'Spartanburg County, SC', 'Montgomery County, OH', 'Harrison County, MS', 'Winnebago County, IL', 'Champaign County, IL', 'Orange County, FL', 'Lackawanna County, PA', 'Yakima County, WA', 'San Diego County, CA', 'Somerset County, NJ', 'Delaware County, OH', 'Franklin County, PA', 'Miami County, OH', 'Pinellas County, FL', 'Arlington County, VA', 'Adams County, PA', 'Marion County, OR', 'La Crosse County, WI', 'Carroll County, MD', 'Mobile County, AL', 'Ector County, TX', 'Douglas County, GA', 'Mahoning County, OH', 'Aiken County, SC', 'Racine County, WI', 'Guilford County, NC', 'Baltimore County, MD', 'Butler County, OH', 'District of Columbia, DC', 'Mesa County, CO', 'Wake County, NC', 'Bucks County, PA', 'Hawaii County, HI', 'Jefferson County, MO', 'Jefferson Parish, LA', 'Lowndes County, GA', 'Madera County, CA', 'Scott County, IA', 'Cambria County, PA', 'Bergen County, NJ', 'Lancaster County, NE', 'Outagamie County, WI', 'Montgomery County, TX', 'New Castle County, DE', 'Middlesex County, CT', 'Wayne County, OH', 'Rensselaer County, NY', 'Rockingham County, NH', 'Rutherford County, TN', 'Morgan County, AL', 'Passaic County, NJ', 'Chatham County, GA', 'Knox County, TN', 'Sandoval County, NM', 'St. Joseph County, IN', 'Lucas County, OH', 'Bernalillo County, NM', 'Philadelphia County, PA', 'Dauphin County, PA', 'McHenry County, IL', 'Loudoun County, VA', 'San Joaquin County, CA', 'Anchorage Borough, AK', 'Allegheny County, PA', 'Kent County, DE', 'York County, SC', 'Stearns County, MN', 'Volusia County, FL', 'Polk County, IA', 'Monmouth County, NJ', 'Virginia Beach city, VA', 'St. Johns County, FL', 'Sussex County, NJ', 'Alexandria city, VA', 'Potter County, TX', 'Trumbull County, OH', 'Houston County, GA', 'Licking County, OH', 'Cook County, IL', 'Collier County, FL', 'Cumberland County, NJ', 'Douglas County, CO', 'Cache County, UT', 'Sacramento County, CA', 'Fairfield County, CT', 'Berkeley County, WV', 'Monroe County, NY', 'Alameda County, CA', 'Washington County, MN', 'Tolland County, CT', 'Bristol County, MA', 'Johnston County, NC', 'Providence County, RI', 'Dane County, WI', 'Kalamazoo County, MI', 'St. Louis County, MN', 'Walworth County, WI', 'Hidalgo County, TX', 'Fort Bend County, TX', 'Galveston County, TX', 'Richmond city, VA', 'Hamilton County, IN', 'Hendricks County, IN', 'Cobb County, GA', 'Dorchester County, SC', 'Weber County, UT', 'Newport News city, VA', 'Lorain County, OH', 'Erie County, NY', 'Travis County, TX', 'Penobscot County, ME', 'Westchester County, NY', 'Rock Island County, IL', 'Navajo County, AZ', 'Cecil County, MD', 'New Hanover County, NC', 'Washington County, OR', 'Morris County, NJ', 'Cass County, ND', 'Orange County, NC', 'Kendall County, IL', 'Kaufman County, TX', 'La Porte County, IN', 'Clayton County, GA', 'DeKalb County, IL', 'Nassau County, NY', 'Mercer County, NJ', 'Oakland County, MI', 'Washington County, MD', 'Washington County, UT', 'Yellowstone County, MT', 'Seminole County, FL', 'Clermont County, OH', 'Santa Clara County, CA', 'Forsyth County, NC', 'Broome County, NY', 'Thurston County, WA', 'Blair County, PA', 'Snohomish County, WA', 'Skagit County, WA', 'Maui County, HI', 'Chester County, PA'],
+    'Poverty Rate': [18.13, 15.28, 17.08, 15.41, 16.54, 10.66, 17.66, 5.23, 10.31, 20.47, 8.26, 14.75, 6.2, 13.27, 11.68, 7.2, 13.0, 16.82, 9.36, 17.03, 14.07, 11.93, 7.87, 12.65, 11.33, 24.56, 18.69, 17.07, 24.13, 10.31, 14.41, 16.3, 14.69, 29.0, 12.68, 10.34, 18.67, 8.83, 5.56, 18.42, 7.84, 10.17, 16.47, 10.71, 24.29, 19.4, 21.32, 12.05, 9.09, 14.61, 13.99, 14.62, 14.93, 14.83, 4.92, 10.73, 15.7, 8.92, 16.6, 17.27, 14.49, 25.64, 15.44, 15.49, 17.37, 11.52, 7.68, 17.7, 16.64, 10.73, 7.95, 10.74, 8.89, 14.13, 17.74, 13.19, 16.55, 13.1, 10.45, 16.62, 14.47, 17.5, 10.36, 10.67, 16.96, 11.13, 9.81, 10.74, 13.97, 5.12, 11.6, 17.3, 8.57, 8.34, 5.0, 8.13, 20.79, 21.16, 17.79, 20.07, 13.88, 19.85, 23.46, 16.03, 17.92, 22.76, 11.87, 10.94, 6.68, 12.04, 14.49, 6.94, 5.46, 8.77, 5.57, 14.11, 10.92, 12.55, 9.73, 7.37, 10.03, 9.6, 17.51, 17.99, 13.7, 14.84, 13.79, 10.37, 7.04, 10.66, 8.03, 10.12, 16.69, 13.17, 10.62, 12.78, 14.05, 12.1, 10.49, 7.06, 21.66, 18.53, 12.59, 16.19, 16.27, 9.6, 16.11, 8.22, 16.47, 8.77, 12.53, 14.64, 13.12, 11.06, 13.87, 11.47, 10.79, 19.17, 16.69, 15.49, 14.58, 11.99, 11.31, 11.18, 7.81, 16.56, 16.37, 15.32, 30.92, 16.72, 11.67, 13.2, 12.89, 8.28, 12.67, 13.34, 13.32, 7.4, 5.85, 15.71, 10.11, 16.09, 15.48, 18.16, 13.87, 15.69, 31.26, 16.2, 16.63, 4.95, 10.23, 15.56, 13.16, 9.29, 17.5, 12.58, 18.28, 16.1, 22.94, 18.71, 15.35, 9.75, 19.65, 11.7, 19.12, 12.09, 10.77, 10.12, 4.3, 12.76, 6.38, 11.71, 9.45, 19.97, 12.43, 16.85, 15.92, 14.75, 21.22, 12.84, 16.43, 17.78, 21.59, 13.34, 16.31, 17.29, 10.84, 10.03, 8.27, 13.34, 13.22, 11.43, 7.05, 11.58, 16.71, 9.56, 14.41, 13.18, 11.52, 17.09, 15.94, 10.97, 10.05, 7.96, 10.62, 8.39, 12.04, 7.93, 8.0, 19.26, 9.1, 15.33, 16.38, 16.02, 19.78, 28.45, 15.68, 17.67, 13.18, 9.33, 7.5, 9.45, 16.78, 14.54, 27.18, 11.77, 15.26, 5.89, 8.79, 6.48, 17.63, 20.28, 20.19, 16.5, 20.42, 8.58, 15.66, 6.46, 4.57, 14.49, 18.82, 14.11, 6.83, 5.55, 7.92, 23.16, 19.12, 17.28, 6.09, 7.83, 13.88, 16.29, 23.1, 9.68, 17.61, 17.33, 18.28, 12.27, 15.1, 16.78, 12.06, 12.74, 19.27, 17.1, 13.15, 13.61, 9.62, 13.92, 14.78, 21.75, 11.65, 16.64, 4.62, 8.17, 7.74, 6.72, 6.82, 12.51, 17.19, 11.6, 13.26, 17.83, 9.38, 7.29, 10.33, 13.64, 9.16, 13.56, 10.98, 9.21, 17.66, 13.3, 10.55, 12.7, 11.99, 6.25, 14.42, 10.68, 8.2, 13.19, 26.75, 12.92, 10.52, 8.54, 13.89, 6.1, 14.02, 13.2, 16.29, 25.01, 18.59, 16.94, 9.25, 6.84, 22.15, 15.51, 7.77, 19.58, 16.26, 6.86, 10.17, 9.67, 14.05, 6.5, 12.92, 20.59, 18.12, 10.36, 13.72, 10.37, 13.53, 10.6, 7.37, 13.29, 11.7, 16.61, 9.55, 14.48, 9.22, 16.95, 13.69, 11.82, 10.2, 6.9, 15.38, 9.66, 9.49, 12.59, 6.22, 11.82, 13.89, 14.34, 15.12, 17.31, 19.88, 15.01, 19.76, 16.23, 14.82, 18.7, 13.0, 4.72, 4.99, 10.22, 9.75, 13.47, 8.06, 8.41, 15.45, 13.82, 5.37, 18.89, 12.12, 14.05, 17.09, 16.4, 11.6, 16.24, 8.88, 12.51, 16.51, 15.62, 9.89, 6.05, 17.17, 10.81, 16.18, 24.06, 20.88, 12.02, 14.8, 7.13, 13.35, 8.46, 10.26, 11.55, 6.97, 12.6, 12.09, 4.76, 11.63, 16.32, 16.77, 16.5, 15.35, 14.59, 16.38, 19.32, 17.74, 25.1, 12.99, 7.25, 3.66, 16.75, 7.88, 12.16, 12.56, 12.09, 12.44, 15.76, 11.47, 7.5, 7.84, 8.97, 5.27, 10.39, 20.39, 16.85, 16.46, 11.48, 15.68, 12.72, 17.28, 3.63, 14.79, 16.46, 8.59, 12.86, 14.36, 11.12, 4.88, 5.8, 11.82, 14.29, 16.02, 12.05, 16.16, 14.77, 12.05, 31.43, 8.01, 13.61, 23.97, 4.95, 4.95, 10.71, 11.6, 11.99, 15.6, 13.25, 14.46, 13.59, 15.18, 9.21, 14.09, 28.31, 9.31, 17.45, 10.18, 4.57, 10.91, 12.96, 5.6, 12.25, 15.27, 21.41, 17.18, 5.77, 10.83, 8.94, 12.07, 14.06, 9.87, 11.69, 9.72, 8.5, 18.2, 16.21, 11.4, 14.81, 8.7, 14.1, 9.84, 6.69],
+    'Morbidity Rate': [1.19, 1.04, 2.2, 1.36, 1.07, 0.85, 0.52, 1.34, 1.04, 1.18, 0.8, 1.05, 1.66, 0.72, 1.7, 0.58, 1.55, 1.23, 0.86, 2.0, 1.26, 1.46, 1.22, 1.92, 0.78, 1.72, 1.37, 1.13, 0.89, 1.56, 1.0, 2.32, 1.06, 0.88, 0.71, 0.84, 1.22, 0.96, 1.46, 0.78, 2.16, 1.97, 0.72, 0.85, 0.99, 1.06, 1.23, 0.64, 0.85, 2.02, 1.66, 1.0, 2.36, 1.71, 2.82, 1.07, 1.16, 2.16, 1.05, 3.98, 1.36, 0.87, 4.03, 1.02, 0.93, 0.7, 1.06, 0.48, 5.59, 1.27, 1.57, 3.01, 1.96, 1.1, 3.66, 1.64, 1.06, 1.52, 1.79, 0.49, 1.41, 1.79, 1.46, 1.14, 1.13, 1.4, 1.18, 0.52, 1.11, 1.85, 1.38, 0.44, 1.29, 1.23, 0.91, 1.72, 1.01, 2.32, 1.37, 2.01, 0.48, 1.59, 1.25, 0.95, 2.64, 0.93, 8.49, 1.58, 1.29, 2.17, 0.93, 1.65, 1.31, 1.07, 1.12, 1.44, 1.07, 1.8, 1.31, 0.54, 2.34, 0.9, 1.56, 2.31, 0.56, 2.02, 0.91, 0.63, 1.38, 1.98, 1.86, 0.99, 0.6, 1.38, 3.3, 5.38, 1.12, 1.48, 2.13, 0.39, 1.03, 1.76, 1.75, 1.61, 0.52, 1.1, 0.62, 1.77, 0.61, 1.48, 1.43, 1.22, 1.11, 1.16, 0.44, 1.38, 1.3, 2.7, 2.31, 2.07, 2.17, 1.28, 1.48, 1.65, 1.17, 0.95, 3.07, 2.77, 0.75, 0.95, 1.09, 1.71, 1.2, 0.92, 1.97, 1.1, 0.92, 1.59, 2.17, 1.92, 4.19, 2.45, 0.89, 1.01, 1.11, 1.28, 0.89, 1.16, 3.1, 2.55, 1.73, 2.06, 0.85, 1.38, 0.7, 1.08, 1.21, 1.9, 0.72, 2.28, 0.88, 2.34, 0.45, 1.8, 1.9, 1.03, 0.52, 1.65, 1.86, 0.87, 1.91, 1.92, 3.0, 0.91, 1.62, 1.3, 1.91, 2.0, 0.84, 0.66, 0.42, 1.1, 1.72, 0.68, 0.75, 0.75, 0.77, 0.7, 1.54, 1.89, 0.62, 1.0, 5.48, 1.16, 0.72, 0.93, 1.34, 4.93, 1.49, 0.92, 0.55, 0.92, 2.39, 2.56, 1.4, 2.53, 0.88, 1.89, 1.5, 1.42, 1.43, 3.15, 1.75, 1.08, 0.39, 1.0, 0.92, 1.27, 0.71, 0.75, 1.47, 1.6, 1.4, 1.55, 12.37, 3.53, 1.1, 1.02, 2.01, 2.32, 2.99, 2.49, 1.02, 1.47, 1.02, 0.86, 1.64, 2.82, 8.96, 1.29, 0.96, 2.24, 0.72, 1.56, 1.79, 1.64, 1.34, 1.4, 0.65, 1.41, 2.23, 1.78, 0.79, 0.75, 2.52, 1.61, 1.9, 1.36, 1.0, 1.22, 0.78, 1.07, 1.86, 1.02, 1.47, 0.98, 0.88, 2.2, 1.14, 0.53, 1.84, 1.62, 1.09, 1.44, 2.46, 1.39, 1.4, 1.2, 0.12, 1.84, 0.6, 1.82, 0.91, 1.64, 0.78, 1.72, 1.9, 1.63, 1.33, 0.92, 2.0, 1.8, 1.32, 1.51, 0.72, 0.89, 0.96, 0.96, 1.76, 1.54, 0.41, 0.97, 1.48, 0.99, 1.98, 1.31, 1.35, 3.38, 1.82, 0.31, 0.87, 1.66, 1.01, 1.4, 1.08, 0.79, 1.07, 1.21, 3.45, 0.79, 1.09, 2.41, 1.02, 1.04, 0.8, 0.67, 1.11, 0.94, 1.96, 0.48, 1.19, 3.38, 1.61, 1.67, 0.66, 0.92, 0.7, 0.7, 1.39, 0.43, 0.71, 1.96, 0.97, 0.39, 0.61, 0.57, 0.94, 1.37, 5.3, 2.32, 1.94, 2.22, 0.75, 1.11, 1.62, 1.77, 2.71, 1.09, 0.59, 0.98, 1.36, 1.31, 2.85, 2.23, 1.44, 0.79, 0.58, 3.49, 2.32, 2.3, 6.98, 1.06, 0.4, 1.53, 0.77, 1.48, 1.85, 0.92, 1.73, 2.06, 1.3, 1.75, 1.42, 0.95, 0.76, 1.18, 1.86, 0.79, 1.88, 1.19, 1.56, 0.97, 1.41, 1.08, 0.65, 2.7, 1.37, 1.17, 2.77, 2.08, 1.86, 1.96, 1.39, 0.45, 0.76, 0.72, 0.82, 1.31, 1.44, 1.74, 0.62, 0.87, 0.82, 2.1, 2.31, 1.91, 1.31, 1.37, 2.19, 1.13, 1.88, 1.21, 0.64, 0.67, 1.08, 0.97, 1.83, 1.21, 0.76, 1.86, 1.92, 1.91, 2.87, 0.88, 1.56, 1.83, 1.39, 0.94, 3.23, 1.68, 2.05, 1.44, 1.02, 0.74, 1.99, 3.06, 1.5, 3.42, 1.49, 1.77, 0.67, 0.88, 0.54, 1.13, 1.54, 0.86, 0.92, 1.24, 1.08, 2.06, 4.7, 0.86, 0.87, 1.31, 2.25, 1.88, 1.39, 1.4, 2.72, 1.36, 5.01, 3.35, 0.86, 1.01, 1.42, 0.82, 1.28, 2.02, 0.88, 1.71, 0.65, 1.14, 1.77, 0.9, 2.9, 1.81, 1.96, 0.91, 1.51, 2.07, 1.12, 1.44, 0.66, 1.73],
+    'Age of Mother': [26.67, 28.13, 27.41, 28.97, 28.12, 29.12, 28.64, 29.43, 29.63, 27.5, 30.03, 29.41, 29.18, 28.56, 30.06, 32.38, 30.08, 27.71, 29.75, 28.52, 28.87, 29.74, 33.34, 28.41, 28.65, 29.09, 30.24, 28.06, 28.32, 29.02, 28.85, 27.36, 28.6, 29.22, 28.48, 30.1, 30.25, 29.59, 30.74, 29.1, 28.63, 29.21, 27.65, 29.58, 28.67, 28.2, 27.09, 29.89, 28.94, 26.94, 27.95, 28.2, 28.97, 30.26, 29.88, 28.86, 29.91, 30.36, 27.54, 27.85, 27.23, 26.92, 27.86, 30.02, 27.89, 28.65, 30.8, 27.63, 30.63, 28.38, 28.86, 30.11, 30.22, 30.64, 29.19, 28.42, 26.67, 27.37, 28.66, 28.82, 27.89, 28.48, 28.32, 28.93, 31.08, 28.22, 29.85, 27.36, 28.21, 31.64, 29.6, 27.22, 30.54, 29.47, 29.86, 30.99, 27.32, 28.18, 26.91, 28.53, 30.35, 27.4, 28.23, 27.05, 28.86, 27.98, 27.87, 29.09, 31.2, 29.35, 27.81, 31.77, 30.32, 29.7, 30.65, 28.78, 30.06, 28.62, 30.5, 29.4, 31.57, 28.93, 28.14, 27.34, 27.59, 30.02, 27.33, 28.08, 30.26, 28.46, 30.3, 30.08, 28.1, 28.88, 28.86, 27.85, 28.61, 28.81, 27.89, 29.93, 30.39, 31.15, 29.83, 27.29, 28.42, 29.63, 28.25, 28.62, 28.6, 29.08, 28.43, 28.57, 28.92, 28.51, 27.13, 33.31, 29.46, 27.06, 28.55, 29.63, 29.62, 28.85, 30.91, 29.57, 31.18, 28.72, 30.06, 28.62, 26.83, 28.08, 28.01, 29.26, 29.59, 30.8, 28.83, 28.62, 27.79, 30.15, 30.34, 28.51, 28.83, 30.86, 28.81, 27.02, 27.1, 28.11, 28.68, 26.53, 28.8, 31.16, 27.94, 27.41, 28.84, 29.74, 28.4, 28.79, 27.28, 27.83, 26.99, 28.15, 26.95, 28.73, 28.73, 29.26, 27.11, 30.1, 28.47, 29.2, 32.36, 30.78, 32.39, 28.24, 29.62, 28.78, 28.46, 27.2, 28.03, 28.63, 27.26, 27.65, 27.43, 29.16, 28.47, 28.67, 30.31, 29.56, 28.6, 28.48, 30.2, 28.62, 28.86, 29.44, 30.85, 28.81, 30.4, 27.93, 27.73, 28.25, 28.43, 27.38, 27.72, 28.46, 30.41, 29.27, 30.39, 29.85, 30.01, 32.15, 30.83, 27.24, 29.66, 27.42, 29.23, 27.96, 27.6, 26.36, 28.45, 28.67, 28.0, 29.09, 29.21, 29.33, 32.55, 26.86, 27.04, 30.1, 28.31, 30.55, 29.53, 30.74, 30.49, 29.38, 27.48, 26.98, 27.7, 27.56, 27.73, 31.08, 31.54, 27.94, 27.65, 28.47, 30.65, 30.18, 27.95, 27.22, 28.31, 27.11, 31.72, 30.34, 28.97, 27.85, 27.07, 28.02, 26.51, 27.25, 27.04, 27.03, 27.47, 28.05, 28.4, 27.63, 28.18, 28.35, 28.35, 27.87, 28.53, 29.06, 29.15, 27.84, 29.27, 27.34, 29.48, 29.93, 30.25, 30.58, 30.6, 26.26, 28.44, 28.77, 30.06, 28.36, 28.16, 30.01, 28.37, 27.55, 28.89, 30.72, 28.95, 29.15, 27.28, 28.53, 29.25, 28.58, 30.98, 30.53, 27.7, 29.61, 29.41, 29.7, 27.82, 29.69, 30.73, 29.54, 26.74, 30.06, 29.94, 28.89, 27.61, 28.43, 27.49, 26.73, 28.27, 29.47, 26.81, 28.69, 28.34, 28.66, 29.25, 30.11, 28.86, 31.06, 27.39, 30.08, 28.76, 27.29, 27.09, 29.3, 30.93, 31.2, 27.28, 30.92, 29.88, 28.65, 27.92, 28.07, 28.98, 27.98, 28.89, 27.65, 27.95, 28.47, 30.84, 30.19, 28.93, 28.73, 29.74, 31.26, 31.35, 31.45, 28.5, 29.37, 27.69, 27.96, 27.52, 27.92, 28.91, 29.65, 28.94, 27.93, 30.31, 31.77, 31.54, 28.21, 28.09, 29.36, 32.6, 28.48, 28.32, 29.47, 30.19, 27.25, 26.45, 28.58, 27.9, 27.81, 28.3, 28.82, 29.92, 28.6, 30.85, 27.89, 30.6, 31.02, 28.77, 28.36, 28.55, 27.2, 28.23, 28.55, 28.08, 32.25, 29.37, 29.47, 28.95, 29.45, 31.01, 28.33, 29.56, 30.93, 28.61, 26.91, 29.52, 28.56, 28.73, 28.62, 27.85, 27.71, 28.67, 28.82, 28.7, 30.35, 31.94, 28.89, 29.11, 30.12, 28.26, 29.02, 29.17, 28.21, 28.96, 31.58, 29.21, 30.81, 30.9, 31.92, 26.66, 27.29, 27.65, 28.35, 30.05, 29.43, 27.81, 31.38, 28.15, 29.6, 31.5, 27.56, 29.45, 31.61, 30.79, 30.85, 29.56, 28.84, 29.27, 30.79, 28.68, 29.09, 29.17, 26.99, 30.91, 28.54, 28.57, 31.16, 29.53, 30.23, 28.55, 27.78, 27.74, 28.35, 29.56, 30.06, 28.48, 31.86, 28.17, 27.14, 28.22, 29.64, 30.49, 32.39, 29.49, 31.2, 30.76, 28.4, 27.51, 27.77, 28.74, 31.75, 30.22, 30.57, 28.24, 28.32, 28.39, 29.95, 28.51, 31.69, 28.67, 28.53, 29.13, 27.9, 30.32, 28.91, 29.61, 31.29],
+    'Number of Prenatal Visits': [10.45, 11.04, 11.58, 10.64, 10.72, 11.29, 11.4, 12.4, 11.43, 9.67, 10.85, 10.98, 11.4, 11.04, 13.18, 11.57, 12.84, 10.79, 11.79, 13.14, 12.25, 9.79, 10.28, 11.41, 10.65, 11.23, 11.9, 10.28, 9.89, 11.01, 11.89, 10.66, 11.77, 10.16, 9.83, 11.79, 12.16, 13.91, 12.24, 11.92, 12.09, 11.11, 11.21, 10.96, 9.79, 10.78, 9.84, 12.24, 11.79, 12.56, 11.79, 11.87, 9.96, 10.62, 11.98, 10.74, 13.53, 9.47, 12.12, 10.58, 11.88, 12.17, 11.43, 10.98, 10.57, 11.62, 10.32, 11.48, 11.09, 14.55, 12.27, 11.56, 11.74, 12.74, 11.25, 10.87, 11.37, 11.2, 10.51, 9.86, 11.53, 9.77, 11.37, 11.36, 10.26, 12.24, 10.19, 9.35, 11.18, 10.55, 12.12, 11.45, 12.01, 13.3, 11.57, 12.16, 11.53, 12.89, 11.03, 11.8, 10.38, 11.6, 11.57, 11.32, 11.74, 10.5, 11.58, 12.44, 12.24, 11.49, 11.67, 11.23, 13.03, 9.99, 11.77, 10.03, 11.74, 11.58, 10.69, 10.69, 11.34, 10.22, 12.62, 10.6, 10.48, 10.69, 9.92, 10.17, 10.91, 12.04, 12.05, 12.38, 11.52, 11.67, 11.44, 10.85, 11.56, 10.33, 11.79, 11.34, 10.96, 11.85, 10.92, 10.7, 13.86, 11.03, 10.75, 11.28, 10.15, 11.3, 10.86, 10.09, 12.52, 13.01, 11.49, 11.12, 11.98, 9.7, 11.3, 10.98, 11.33, 11.08, 12.0, 11.36, 12.33, 11.64, 12.88, 11.33, 11.11, 12.62, 11.41, 12.17, 10.07, 10.69, 12.75, 10.88, 11.55, 11.36, 14.39, 12.18, 10.77, 11.46, 11.68, 10.37, 11.89, 10.53, 10.01, 10.24, 11.43, 13.35, 11.61, 13.24, 9.96, 12.38, 10.83, 12.65, 12.37, 13.91, 11.36, 10.4, 9.72, 11.48, 11.28, 12.59, 10.02, 12.35, 9.52, 13.49, 12.15, 12.89, 12.11, 13.42, 10.99, 11.14, 12.68, 13.95, 11.66, 11.51, 10.25, 11.22, 9.79, 12.33, 10.3, 9.35, 9.68, 10.65, 11.53, 11.72, 11.81, 11.72, 10.43, 11.83, 10.94, 11.99, 12.19, 10.88, 12.11, 14.78, 11.25, 10.27, 10.79, 11.61, 10.56, 11.63, 11.62, 12.59, 10.62, 11.88, 12.24, 9.96, 10.19, 13.51, 10.19, 10.78, 11.95, 9.7, 9.84, 11.23, 11.22, 12.28, 11.65, 11.6, 11.63, 11.4, 11.29, 12.13, 11.09, 10.57, 12.67, 12.02, 11.97, 12.38, 10.06, 9.95, 9.91, 11.0, 11.46, 12.66, 11.21, 10.92, 11.76, 11.33, 11.1, 11.74, 10.78, 10.32, 10.97, 12.87, 11.61, 10.53, 12.28, 11.63, 13.24, 10.85, 9.62, 11.76, 11.29, 11.58, 11.81, 10.39, 10.96, 12.79, 10.51, 10.92, 12.65, 10.94, 10.39, 11.93, 13.14, 11.58, 13.65, 8.71, 11.33, 12.59, 12.11, 12.77, 12.52, 12.3, 10.27, 11.06, 10.93, 9.56, 11.21, 11.18, 10.66, 11.79, 10.26, 11.15, 13.58, 11.1, 10.9, 11.32, 11.58, 11.5, 12.58, 10.28, 11.43, 11.64, 12.07, 12.06, 11.33, 14.01, 11.41, 11.06, 11.97, 12.14, 11.02, 10.18, 11.08, 12.78, 11.01, 10.97, 11.95, 10.25, 9.51, 11.09, 10.8, 14.06, 10.91, 10.78, 11.19, 11.82, 12.26, 11.49, 12.51, 10.65, 10.66, 11.61, 15.39, 14.13, 11.09, 12.59, 13.11, 9.8, 11.9, 10.6, 10.81, 10.89, 12.46, 10.65, 10.39, 9.78, 10.43, 12.66, 11.37, 13.25, 12.54, 10.76, 11.28, 12.38, 12.14, 12.72, 13.29, 11.33, 11.62, 13.07, 12.77, 9.27, 11.32, 11.36, 11.86, 11.16, 11.93, 11.07, 11.31, 11.14, 10.8, 12.23, 12.1, 11.69, 10.83, 10.87, 9.26, 12.02, 12.94, 10.85, 11.24, 11.69, 10.93, 11.8, 10.28, 10.81, 12.68, 11.11, 10.44, 11.02, 11.91, 12.12, 11.16, 12.81, 11.05, 11.35, 10.42, 13.91, 10.05, 10.6, 13.36, 10.31, 12.21, 12.68, 10.91, 10.65, 10.75, 9.8, 12.86, 9.88, 11.0, 12.54, 9.88, 10.26, 10.53, 11.76, 11.9, 13.12, 11.1, 12.97, 10.29, 12.27, 11.47, 11.19, 11.93, 11.06, 12.22, 11.58, 11.18, 11.69, 10.34, 12.05, 10.91, 10.75, 10.88, 10.53, 9.66, 11.04, 11.53, 11.49, 12.46, 11.14, 10.85, 10.68, 11.76, 12.38, 12.43, 12.31, 11.33, 12.81, 15.95, 11.76, 12.11, 10.94, 9.84, 11.0, 10.28, 12.38, 12.23, 12.73, 11.04, 10.93, 11.92, 11.72, 10.8, 12.26, 13.95, 11.19, 11.64, 9.74, 10.62, 12.22, 11.29, 11.27, 11.03, 11.69, 12.02, 10.41, 10.48, 9.55, 11.93, 11.96, 10.59, 13.08, 11.07, 11.35, 12.14, 9.91, 12.21, 11.92, 13.61, 11.58, 11.4, 11.19, 10.93, 10.09, 11.96, 9.9]
+};
+
+var red_points = ['Randolph County, NC', 'St. Lawrence County, NY', 'York County, ME', 'Monroe County, PA', 'Oswego County, NY', 'Allegan County, MI', 'Franklin County, MO', 'Ulster County, NY', 'Harnett County, NC', 'Fayette County, PA', 'Ashtabula County, OH', 'Hunterdon County, NJ', "St. Mary's County, MD", 'Robeson County, NC', 'Windham County, CT', 'Wayne County, NC', 'Merrimack County, NH', 'Adams County, PA', 'Hawaii County, HI', 'Wayne County, OH', 'Tolland County, CT', 'Johnston County, NC', 'Penobscot County, ME', 'Navajo County, AZ'];
+var blue_points = ['Calhoun County, AL', 'Tulsa County, OK', 'Saginaw County, MI', 'Hillsborough County, FL', 'Lake County, IN', 'Osceola County, FL', 'Sarpy County, NE', 'Kane County, IL', 'San Juan County, NM', 'Denton County, TX', 'Hays County, TX', 'Davis County, UT', 'Manatee County, FL', 'New Haven County, CT', 'San Mateo County, CA', 'San Luis Obispo County, CA', 'Canyon County, ID', 'Cherokee County, GA', 'Stanislaus County, CA', 'Monterey County, CA', 'Orange County, NY', 'Marin County, CA', 'Lexington County, SC', 'Henry County, GA', 'Miami-Dade County, FL', 'Pulaski County, AR', 'Brazos County, TX', 'Salt Lake County, UT', 'Clark County, NV', 'Sullivan County, TN', 'Jefferson County, KY', 'Lake County, FL', 'Henrico County, VA', 'Yolo County, CA', 'Northampton County, PA', 'Scott County, MN', 'Lane County, OR', 'Tazewell County, IL', 'Clark County, WA', 'Ocean County, NJ', 'Marion County, IN', 'El Paso County, TX', 'Gwinnett County, GA', 'Wilson County, TN', 'Craven County, NC', 'Rock County, WI', 'Luzerne County, PA', 'Atlantic County, NJ', 'Warren County, OH', 'Porter County, IN', 'Durham County, NC', 'Olmsted County, MN', 'Cowlitz County, WA', 'Allen County, OH', 'Bibb County, GA', 'Peoria County, IL', 'Fulton County, GA', 'Washington County, AR', 'Coweta County, GA', 'Jefferson County, CO', 'Greene County, MO', 'Johnson County, IA', 'Eaton County, MI', 'Sheboygan County, WI', 'Worcester County, MA', 'Clackamas County, OR', 'Santa Cruz County, CA', 'Boone County, MO', 'Madison County, IL', 'Madison County, IN', 'Guadalupe County, TX', 'Harris County, TX', 'Allen County, IN', 'Dallas County, TX', 'Benton County, AR', 'Minnehaha County, SD', 'Hudson County, NJ', 'Okaloosa County, FL', 'Arapahoe County, CO', 'Johnson County, TX', 'Brunswick County, NC', 'Howard County, MD', 'Ada County, ID', 'Cumberland County, NC', 'Dutchess County, NY', 'Wright County, MN', 'Placer County, CA', 'Muscogee County, GA', 'Lee County, AL', 'Muskegon County, MI', 'Milwaukee County, WI', 'Delaware County, IN', 'Wayne County, MI', 'Macon County, IL', 'Cuyahoga County, OH', 'Merced County, CA', 'Schuylkill County, PA', 'DuPage County, IL', 'Schenectady County, NY', 'Pinal County, AZ', 'Montgomery County, MD', 'Washington County, WI', 'Honolulu County, HI', 'Johnson County, KS', 'Santa Fe County, NM', 'Hartford County, CT', 'Iredell County, NC', 'El Dorado County, CA', 'Cumberland County, PA', 'King County, WA', 'Kitsap County, WA', 'Lubbock County, TX', 'Escambia County, FL', 'Charleston County, SC', 'Hardin County, KY', 'Ellis County, TX', 'Frederick County, MD', 'Warren County, NJ', 'Ventura County, CA', 'Berrien County, MI', 'Kent County, MI', 'Beaver County, PA', 'Mercer County, PA', 'Kenosha County, WI', 'Adams County, CO', 'Chesterfield County, VA', 'Kings County, NY', 'Kanawha County, WV', 'St. Louis County, MO', 'Bexar County, TX', 'Fond du Lac County, WI', 'St. Lucie County, FL', 'Clay County, MO', 'Berkeley County, SC', 'Lee County, FL', 'Greenville County, SC', 'Monroe County, MI', 'Bell County, TX', 'San Francisco County, CA', 'Berkshire County, MA', 'Yuma County, AZ', 'Hampden County, MA', 'Missoula County, MT', 'Ramsey County, MN', 'Pierce County, WA', 'Hennepin County, MN', 'Solano County, CA', 'Plymouth County, MA', 'Jackson County, OR', 'Centre County, PA', 'Sangamon County, IL', 'Cameron County, TX', 'Horry County, SC', 'Baldwin County, AL', 'Douglas County, NE', 'Camden County, NJ', 'Middlesex County, NJ', 'Wood County, OH', 'Pasco County, FL', 'Lycoming County, PA', 'Harford County, MD', 'Livingston County, MI', 'Oneida County, NY', 'Lancaster County, PA', 'Multnomah County, OR', 'Richland County, SC', 'Jefferson County, TX', 'Montgomery County, TN', 'Jackson County, MO', 'Clarke County, GA', 'Clark County, OH', 'Hamilton County, OH', 'Waukesha County, WI', 'Lebanon County, PA', 'Davidson County, NC', 'Washoe County, NV', 'Union County, NC', 'Indian River County, FL', 'Bay County, MI', 'Taylor County, TX', 'Fairfield County, OH', 'Leon County, FL', 'Macomb County, MI', 'Larimer County, CO', 'El Paso County, CO', 'Westmoreland County, PA', 'Richmond County, NY', 'Norfolk County, MA', 'Henderson County, NC', 'Ontario County, NY', 'Butte County, CA', 'Kootenai County, ID', 'Calhoun County, MI', 'Linn County, OR', 'Spokane County, WA', 'Wyandotte County, KS', 'Shawnee County, KS', 'Tuscaloosa County, AL', 'Fayette County, KY', 'Tarrant County, TX', 'Essex County, NJ', 'DeKalb County, GA', 'Santa Rosa County, FL', 'York County, PA', 'Lake County, IL', 'Summit County, OH', 'Brevard County, FL', 'Cabarrus County, NC', 'Suffolk County, NY', 'Greene County, OH', 'Los Angeles County, CA', 'Clark County, IN', 'Berks County, PA', 'Utah County, UT', 'Marion County, FL', 'Smith County, TX', 'Weld County, CO', 'Delaware County, PA', 'Essex County, MA', 'Hillsborough County, NH', 'Deschutes County, OR', 'Middlesex County, MA', 'Napa County, CA', 'Pueblo County, CO', "Prince George's County, MD", 'Anderson County, SC', 'Davidson County, TN', 'Erie County, PA', 'Genesee County, MI', 'Duval County, FL', 'San Bernardino County, CA', 'St. Clair County, MI', 'Boone County, KY', 'Washington County, PA', 'New York County, NY', 'Richland County, OH', 'Albany County, NY', 'Black Hawk County, IA', 'Anne Arundel County, MD', 'Strafford County, NH', 'Saratoga County, NY', 'Tompkins County, NY', 'Humboldt County, CA', 'Montgomery County, AL', 'Shelby County, TN', 'Midland County, TX', 'Faulkner County, AR', 'Forsyth County, GA', 'Williamson County, TN', 'Kankakee County, IL', 'Hamilton County, TN', 'Collin County, TX', 'St. Charles County, MO', 'Saline County, AR', 'Richmond County, GA', 'Tippecanoe County, IN', 'Pickens County, SC', 'Fairfax County, VA', 'Gloucester County, NJ', 'Portage County, OH', 'Gaston County, NC', 'Hinds County, MS', 'DeSoto County, MS', 'Etowah County, AL', 'Vanderburgh County, IN', 'Houston County, AL', 'Tom Green County, TX', 'Jackson County, MS', 'St. Clair County, IL', 'Cleveland County, OK', 'Blount County, TN', 'Coconino County, AZ', 'Alamance County, NC', 'LaSalle County, IL', 'Stark County, OH', 'Sumner County, TN', 'McLean County, IL', 'Santa Barbara County, CA', 'Kern County, CA', 'Winnebago County, WI', 'Cochise County, AZ', 'Stafford County, VA', 'Butler County, PA', 'Kent County, RI', 'Litchfield County, CT', 'Dakota County, MN', 'Onslow County, NC', 'Jefferson County, AL', 'Palm Beach County, FL', 'Pima County, AZ', 'Randall County, TX', 'Will County, IL', 'Clay County, FL', 'Woodbury County, IA', 'Comal County, TX', 'Brown County, WI', 'Ottawa County, MI', 'Chautauqua County, NY', 'Benton County, WA', 'Kenton County, KY', 'Orange County, CA', 'Burlington County, NJ', 'Yavapai County, AZ', 'Martin County, FL', 'Lake County, OH', 'Mecklenburg County, NC', 'Tulare County, CA', 'Buncombe County, NC', 'Sonoma County, CA', 'Columbia County, GA', 'Jefferson County, NY', 'Medina County, OH', 'Rockland County, NY', 'Niagara County, NY', 'Rowan County, NC', 'Fresno County, CA', 'McLennan County, TX', 'Jasper County, MO', 'Johnson County, IN', 'Charles County, MD', 'Sebastian County, AR', 'Maricopa County, AZ', 'Canadian County, OK', 'Ingham County, MI', 'Franklin County, OH', 'Prince William County, VA', 'Marathon County, WI', 'Contra Costa County, CA', 'Bartow County, GA', 'Anoka County, MN', 'Lehigh County, PA', 'Mohave County, AZ', 'Sarasota County, FL', 'Washtenaw County, MI', 'Cumberland County, ME', 'Elkhart County, IN', 'Chittenden County, VT', 'Madison County, AL', 'Bonneville County, ID', 'Oklahoma County, OK', 'Brazoria County, TX', 'Sedgwick County, KS', 'Linn County, IA', 'Polk County, FL', 'Pennington County, SD', 'Sussex County, DE', 'Union County, NJ', 'Williamson County, TX', 'Riverside County, CA', 'Paulding County, GA', 'New London County, CT', 'Boulder County, CO', 'Montgomery County, PA', 'Hampshire County, MA', 'Androscoggin County, ME', 'Onondaga County, NY', 'Spartanburg County, SC', 'Montgomery County, OH', 'Harrison County, MS', 'Winnebago County, IL', 'Champaign County, IL', 'Orange County, FL', 'Lackawanna County, PA', 'Yakima County, WA', 'San Diego County, CA', 'Somerset County, NJ', 'Delaware County, OH', 'Franklin County, PA', 'Miami County, OH', 'Pinellas County, FL', 'Arlington County, VA', 'Marion County, OR', 'La Crosse County, WI', 'Carroll County, MD', 'Mobile County, AL', 'Ector County, TX', 'Douglas County, GA', 'Mahoning County, OH', 'Aiken County, SC', 'Racine County, WI', 'Guilford County, NC', 'Baltimore County, MD', 'Butler County, OH', 'Mesa County, CO', 'Wake County, NC', 'Bucks County, PA', 'Jefferson County, MO', 'Lowndes County, GA', 'Madera County, CA', 'Scott County, IA', 'Cambria County, PA', 'Bergen County, NJ', 'Lancaster County, NE', 'Outagamie County, WI', 'Montgomery County, TX', 'New Castle County, DE', 'Middlesex County, CT', 'Rensselaer County, NY', 'Rockingham County, NH', 'Rutherford County, TN', 'Morgan County, AL', 'Passaic County, NJ', 'Chatham County, GA', 'Knox County, TN', 'Sandoval County, NM', 'St. Joseph County, IN', 'Lucas County, OH', 'Bernalillo County, NM', 'Philadelphia County, PA', 'Dauphin County, PA', 'McHenry County, IL', 'Loudoun County, VA', 'San Joaquin County, CA', 'Allegheny County, PA', 'Kent County, DE', 'York County, SC', 'Stearns County, MN', 'Volusia County, FL', 'Polk County, IA', 'Monmouth County, NJ', 'St. Johns County, FL', 'Sussex County, NJ', 'Potter County, TX', 'Trumbull County, OH', 'Houston County, GA', 'Licking County, OH', 'Cook County, IL', 'Collier County, FL', 'Cumberland County, NJ', 'Douglas County, CO', 'Cache County, UT', 'Sacramento County, CA', 'Fairfield County, CT', 'Berkeley County, WV', 'Monroe County, NY', 'Alameda County, CA', 'Washington County, MN', 'Bristol County, MA', 'Providence County, RI', 'Dane County, WI', 'Kalamazoo County, MI', 'St. Louis County, MN', 'Walworth County, WI', 'Hidalgo County, TX', 'Fort Bend County, TX', 'Galveston County, TX', 'Hamilton County, IN', 'Hendricks County, IN', 'Dorchester County, SC', 'Weber County, UT', 'Lorain County, OH', 'Erie County, NY', 'Travis County, TX', 'Westchester County, NY', 'Rock Island County, IL', 'Cecil County, MD', 'New Hanover County, NC', 'Washington County, OR', 'Morris County, NJ', 'Cass County, ND', 'Orange County, NC', 'Kendall County, IL', 'Kaufman County, TX', 'Clayton County, GA', 'DeKalb County, IL', 'Nassau County, NY', 'Mercer County, NJ', 'Oakland County, MI', 'Washington County, MD', 'Washington County, UT', 'Yellowstone County, MT', 'Seminole County, FL', 'Clermont County, OH', 'Santa Clara County, CA', 'Forsyth County, NC', 'Broome County, NY', 'Thurston County, WA', 'Blair County, PA', 'Snohomish County, WA', 'Skagit County, WA', 'Maui County, HI', 'Chester County, PA', 'St. Tammany Parish, LA', 'Orleans Parish, LA', 'Bronx County, NY', 'St. Louis city, MO', 'Denver County, CO', 'Livingston Parish, LA', 'Broward County, FL', 'Suffolk County, MA', 'Lafayette Parish, LA', 'Caddo Parish, LA', 'East Baton Rouge Parish, LA', 'Baltimore city, MD', 'Hampton city, VA', 'Chesapeake city, VA', 'Dona Ana County, NM', 'Calcasieu Parish, LA', 'Norfolk city, VA', 'Ascension Parish, LA', 'Queens County, NY', 'District of Columbia, DC', 'Jefferson Parish, LA', 'Anchorage Borough, AK', 'Virginia Beach city, VA', 'Alexandria city, VA', 'Richmond city, VA', 'Cobb County, GA', 'Newport News city, VA', 'La Porte County, IN'];
+
+    var data_urban = { 'County': [], 'Poverty Rate': [], 'Morbidity Rate': [], 'Age of Mother': [], 'Number of Prenatal Visits': [] };
+    var data_rural = { 'County': [], 'Poverty Rate': [], 'Morbidity Rate': [], 'Age of Mother': [], 'Number of Prenatal Visits': [] };
+
+    data['County'].forEach((county, index) => {
+        if (red_points.includes(county)) {
+            data_rural['County'].push(county);
+            data_rural['Poverty Rate'].push(data['Poverty Rate'][index]);
+            data_rural['Morbidity Rate'].push(data['Morbidity Rate'][index]);
+            data_rural['Age of Mother'].push(data['Age of Mother'][index]);
+            data_rural['Number of Prenatal Visits'].push(data['Number of Prenatal Visits'][index]);
+        } else if (blue_points.includes(county)) {
+            data_urban['County'].push(county);
+            data_urban['Poverty Rate'].push(data['Poverty Rate'][index]);
+            data_urban['Morbidity Rate'].push(data['Morbidity Rate'][index]);
+            data_urban['Age of Mother'].push(data['Age of Mother'][index]);
+            data_urban['Number of Prenatal Visits'].push(data['Number of Prenatal Visits'][index]);
+        }
+    });
+
+    var selectedDataset = 'data';
+
+    function updateScatterplots() {
+        selectedDataset = document.getElementById("dataset").value;
+        updatePlots();
+    }
+
+    function updatePlots() {
+        var selectedData;
+        if (selectedDataset === 'data') {
+            selectedData = data;
+        } else if (selectedDataset === 'data_urban') {
+            selectedData = data_urban;
+        } else if (selectedDataset === 'data_rural') {
+            selectedData = data_rural;
+        }
+
+        var colors = [];
+        selectedData['County'].forEach((county, index) => {
+            if (red_points.includes(county)) {
+                colors.push('#f7a583');
+            } else if (blue_points.includes(county)) {
+                colors.push('#666784');
+            } else {
+                colors.push('#dbbebe');
+            }
+        });
+
+        var trace1 = {
+            x: selectedData['Poverty Rate'],
+            y: selectedData['Age of Mother'],
+            text: selectedData['County'],
+            mode: 'markers',
+            type: 'scatter',
+            marker: {
+                size: 5,
+                opacity: 0.8,
+                color: colors
+            },
+            hovertemplate: '%{text}<br><span style="color: white;">Poverty Rate:</span> %{x}<br><span style="color: white;">Average Age of Mother:</span> %{y}',
+            hoverlabel: { bordercolor: 'white' },
+            name: ''
+        };
+
+        var trace2 = {
+            x: selectedData['Number of Prenatal Visits'],
+            y: selectedData['Morbidity Rate'],
+            text: selectedData['County'],
+            mode: 'markers',
+            type: 'scatter',
+            marker: {
+                size: 5,
+                opacity: 0.8,
+                color: colors
+            },
+            hovertemplate: '%{text}<br><span style="color: white;">Number of Prenatal Visits:</span> %{x}<br><span style="color: white;">Morbidity Rate:</span> %{y}',
+            hoverlabel: { bordercolor: 'white' },
+            name: ''
+        };
+
+        var layout1 = {
+            title: 'Poverty Rate vs. Average Age of Mother',
+            showlegend: false,
+            hovermode: 'closest',
+            xaxis: { title: 'Poverty Rate (%)' },
+            yaxis: { title: 'Average Age of Mother' },
+            width: 700,
+            height: 500,
+            font: {
+                color: '#c39999',
+                family: 'Roboto, sans-serif'
+            },
+            paper_bgcolor: '#fff0f0',
+            plot_bgcolor: 'white',
+            margin: {
+                t: 75
+            }
+        };
+
+        var layout2 = {
+            title: 'Average Number of Prenatal Visits vs. Maternal Morbidity Rate',
+            showlegend: false,
+            hovermode: 'closest',
+            xaxis: { title: 'Average Number of Prenatal Visits' },
+            yaxis: { title: 'Maternal Morbidity Rate (%)', range: [0.00001, 12.7] },
+            width: 700,
+            height: 500,
+            font: {
+                color: '#c39999',
+                family: 'Roboto, sans-serif'
+            },
+            paper_bgcolor: '#fff0f0',
+            plot_bgcolor: 'white',
+            margin: {
+                t: 75
+            }
+        };
+
+        Plotly.newPlot('scatter1', [trace1], layout1, { displayModeBar: false });
+        Plotly.newPlot('scatter2', [trace2], layout2, { displayModeBar: false });
+
+        document.getElementById('scatter1').on('plotly_hover', function(data) {
+            var pointIndex = data.points[0].pointIndex;
+            Plotly.Fx.hover('scatter2', [{ curveNumber: 0, pointNumber: pointIndex }]);
+        });
+
+        document.getElementById('scatter1').on('plotly_unhover', function() {
+            Plotly.Fx.hover('scatter2', []);
+        });
+
+        document.getElementById('scatter2').on('plotly_hover', function(data) {
+            var pointIndex = data.points[0].pointIndex;
+            Plotly.Fx.hover('scatter1', [{ curveNumber: 0, pointNumber: pointIndex }]);
+        });
+
+        document.getElementById('scatter2').on('plotly_unhover', function() {
+            Plotly.Fx.hover('scatter1', []);
+        });
+    }
+
+    updatePlots();
+</script>
+
+</body>
+</html>
+
