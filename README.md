@@ -43,7 +43,7 @@ This folder contains some additional files used in data exploration and creating
   File used to classify counties as urban or rural.
 
 - **`2020_UA_COUNTY.xlsx`**:  
-  File used to classify counties as urban or rural.
+  US Census dataset.
 
 - **`figure2_PA.py`, `figure2_CA.py`, `figure2_GA.py`**:  
   File used to create the three animations in Figure 2.
