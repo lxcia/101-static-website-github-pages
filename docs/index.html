@@ -1,9 +1,150 @@
 <!DOCTYPE html>
 <html>
 <style>
+
    .iframe-container {
-      overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            margin-bottom: 0px;
    }
+
+   .iframe-container-bottom {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            margin-top: 20px;
+            margin-bottom: 7px;
+   }
+
+        #figure-select {
+            appearance: none;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(to bottom, #ffffff, #f2e0e0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            width: 180px;
+            position: relative;
+            font-family: 'Roboto', sans-serif;
+            color: #c39999;
+            margin-bottom: 3px;
+            font-size: 13.5px;
+        }
+
+        #figure-select option {
+            background-color: #fff;
+            color: #333;
+        }
+
+        #figure-select-2 {
+            appearance: none;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(to bottom, #ffffff, #f2e0e0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            width: 250px;
+            position: relative;
+            font-family: 'Roboto', sans-serif;
+            color: #c39999;
+            margin-bottom: 3px;
+            font-size: 13.5px;
+        }
+
+        #figure-select-2 option {
+            background-color: #fff;
+            color: #333;
+        }
+
+        .figure-background {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 1465px;
+            background-color: #fff0f0; /* Set the background color to pink */
+            margin-bottom: 30px;
+            margin: 0 auto; /* Center horizontally */
+        }
+
+        .figure-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 1300px; /* Scaled width */
+            height: 470px; /* Scaled height */
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .figure-container-2 {
+            position: relative;
+            justify-content: center;
+            width: 1450px; /* Scaled width */
+            height: 520px; /* Scaled height */
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .dropdown-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .scaled-figure {
+            width: 100%;
+            height: 100%;
+            transform: scale(1.15);
+            transform-origin: top left;
+        }
+
+        .scaled-figure-2 {
+            width: 100%;
+            height: 100%;
+            transform: scale(1);
+            transform-origin: top left;
+        }
+        .caption {
+            width: 1465px; /* Same width as the gallery */
+            margin: 0 auto; /* Center horizontally */
+            font-family: 'Times New Roman', serif;
+            font-size: 12px;
+            color: #737373;
+            margin-top: 0px;
+            margin-bottom: 20px;
+            text-align: left; /* Align text to the left */
+            box-sizing: border-box; /* Ensure padding and borders are included in the width */
+        }
+        .caption-2 {
+            width: 1484px; /* Same width as the gallery */
+            margin: 0 auto; /* Center horizontally */
+            font-family: 'Times New Roman', serif;
+            font-size: 12px;
+            color: #737373;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            text-align: left; /* Align text to the left */
+            box-sizing: border-box; /* Ensure padding and borders are included in the width */
+        }
+        .caption-4 {
+            width: 1300px; /* Same width as the gallery */
+            margin: 0 auto; /* Center horizontally */
+            font-family: 'Times New Roman', serif;
+            font-size: 12px;
+            color: #737373;
+            margin-top: 0px;
+            margin-bottom: 20px;
+            text-align: left; /* Align text to the left */
+            box-sizing: border-box; /* Ensure padding and borders are included in the width */
+        }
+
 </style>
  <head>
 
@@ -14,33 +155,159 @@
     <link rel="shortcut icon" type="image/jpg" href="IMG_1446.jpg"/>
  </head>
  <body>
-    <img src="header.png" alt="Description of your image" style="width: 100%; display: block; margin: 0 auto;">
-    <img src="headercropped.png" alt="Description of your image" style="width: 100%; display: block; margin: 0 auto;">
-    <h1 style="font-family: 'Space Mono'; font-size: 24px; color: #c39999; margin-left: 40px;">putting the subtitle here</h1>
-    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam. Blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque. Quam pellentesque nec nam aliquam. Tempor orci dapibus ultrices in iaculis nunc sed augue. Non sodales neque sodales ut. Vitae justo eget magna fermentum iaculis. Elementum curabitur vitae nunc sed velit. Dignissim enim sit amet venenatis urna cursus eget nunc. Sem viverra aliquet eget sit amet tellus cras adipiscing enim. Turpis in eu mi bibendum. Etiam non quam lacus suspendisse faucibus. Massa id neque aliquam vestibulum morbi. Egestas maecenas pharetra convallis posuere morbi. Malesuada nunc vel risus commodo viverra maecenas accumsan lacus. Felis donec et odio pellentesque diam. Quis varius quam quisque id.
+    <img src="header.png" alt="Can you survive childbirth in America?" style="width: 100%; display: block; margin: 0px;">
+    <img src="headercropped.png" alt="Can you survive childbirth in America?" style="width: 100%; display: block; margin-bottom: 35px;">
+    <h1 style="font-family: 'Space Mono'; font-size: 24px; color: #c39999; margin-left: 40px;">what factors impact maternal health in the US?</h1>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;"> In the 21st century, a time of unprecedented medical advancements, the United States is grappling with a dire reality: its maternal morbidity rate ranks among the highest in the developed world. In 2018, the U.S. stood 55th globally, with a staggering 17.4 maternal deaths per 100,000 live births. <a href="https://onehealthtrust.org/publications/infographics/worldwide-maternal-mortality-rates/" style="color: #dbbebe;">[1]</a> The numbers are growing more troubling each year — 1,205 women died of maternal causes in 2021, up from 861 in 2020 and 754 in 2019. <a href="https://www.cdc.gov/nchs/data/hestat/maternal-mortality/2021/maternal-mortality-rates-2021.htm" style="color: #dbbebe;">[2]</a></p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;"> Experts believe that 84% of these deaths could have been prevented. <a href="https://www.yalemedicine.org/news/maternal-mortality-on-the-rise" style="color: #dbbebe;">[3]</a></p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;"> What personal health metrics and social determinants impact maternal morbidity in the US? By examining county-level data from the CDC's Births Data Summary <a href="https://console.cloud.google.com/marketplace/product/center-disease-control/wonder-births" style="color: #dbbebe;">[4]</a> and the American Community Survey <a href="https://console.cloud.google.com/marketplace/product/united-states-census-bureau/acs" style="color: #dbbebe;">[5]</a>, we’ll visualize the critical factors influencing maternal health, including maternal age, pre-pregnancy BMI, prenatal care, clinic access, poverty, income, race, and education. </p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;"> Advanced maternal age, commonly defined as 35 years and older, brings a set of heightened risks to pregnancy. This includes an increased likelihood of chromosomal abnormalities like Down syndrome. Additionally, older mothers face higher rates of gestational diabetes and hypertensive disorders, both of which pose significant threats to maternal and fetal health. Conversely, teenage pregnancies also come with their own set of challenges, such as a greater chance of preterm birth and low birth weight. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4418963/" style="color: #dbbebe;">[6]</a>,<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10002018/#:~:text=Our%20findings%20showed%20that%20children,score%20(p%20%3D%200.003)." style="color: #dbbebe;">[7]</a></p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;"> Prenatal visits are medical check-ups that monitor the progress of the pregnancy and ensure the health of both the mother and the developing fetus. The American College of Obstetricians and Gynecologists recommends a schedule of regular prenatal visits throughout pregnancy, with increased frequency in the later stages. These visits are crucial for monitoring the baby's growth, detecting and managing any potential complications, providing essential prenatal education, and offering support to the expecting mother. Insufficient prenatal care may lead to delayed detection and management of pregnancy-related complications. <a href="https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2018/03/group-prenatal-care" style="color: #dbbebe;">[8]</a></p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;"> Explore how maternal age, poverty rate, prenatal visits, and maternal morbidity correlate in the chart below. Filter for urban or rural counties and hover over points to view county name, location, and statistics.</p>
 
-Sit amet consectetur adipiscing elit pellentesque habitant morbi tristique. Non consectetur a erat nam. Pellentesque pulvinar pellentesque habitant morbi. Tristique senectus et netus et malesuada fames ac turpis egestas. Nisl pretium fusce id velit ut tortor pretium viverra suspendisse. Risus nec feugiat in fermentum posuere. Consequat semper viverra nam libero justo laoreet. Diam vulputate ut pharetra sit amet aliquam id. Nisl rhoncus mattis rhoncus urna neque viverra. Facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum. Ultrices vitae auctor eu augue ut lectus arcu bibendum. Rhoncus mattis rhoncus urna neque viverra justo nec ultrices. Pellentesque sit amet porttitor eget dolor. Cursus vitae congue mauris rhoncus aenean vel elit scelerisque mauris. Non tellus orci ac auctor augue mauris augue. Aliquet enim tortor at auctor urna nunc id.
+    <div class="iframe-container">
+        <iframe src="plot_1_final.html" width="1465px" height="516px" style="border: none; margin: 0; padding-bottom: 0;"></iframe>
+    </div>
 
-Egestas tellus rutrum tellus pellentesque eu tincidunt. Enim eu turpis egestas pretium aenean. Donec massa sapien faucibus et molestie ac feugiat. Blandit libero volutpat sed cras. Euismod elementum nisi quis eleifend. Mauris rhoncus aenean vel elit scelerisque mauris. Aliquam faucibus purus in massa tempor. Nisl suscipit adipiscing bibendum est ultricies integer quis auctor elit. Tellus at urna condimentum mattis pellentesque id. Placerat in egestas erat imperdiet sed euismod nisi porta.
+    <div class="caption">
+        <p style="font-family: 'Times New Roman', serif; font-size: 12px; color: #737373; margin-left: 20px; margin-right: 20px; margin-top: 0px; margin-bottom: 25px;"><b>Figure 1.</b> Poverty rate is calculated as the percentage of individuals living in the county recorded as living at or below the poverty line, based on data from the American Community Survey. Average age of mothers at childbirth and average number of prenatal visits during pregnancy are found in the CDC's Births Data Summary. Maternal morbidity rate is computed as the percentage of births resulting in a maternal death out of the total number of births in a county, based on data from the CDC's Births Data Summary. Classification of urban and rural counties is based on data from the 2020 United States Census <a href="https://www.census.gov/programs-surveys/geography/guidance/geo-areas/urban-rural.html" style="color: #dbbebe;">[9]</a>. Counties where greater than 50% of the population lives in an urban area are classified as urban, and others are classified as rural.</p>
+    </div>
 
-Fames ac turpis egestas integer eget aliquet nibh. In pellentesque massa placerat duis ultricies lacus sed turpis. Dignissim convallis aenean et tortor at risus viverra adipiscing at. Fermentum et sollicitudin ac orci phasellus egestas. Sit amet nisl suscipit adipiscing bibendum est. Et odio pellentesque diam volutpat commodo sed egestas egestas. Nullam vehicula ipsum a arcu cursus vitae congue mauris. Quisque id diam vel quam elementum pulvinar etiam non quam. Nullam vehicula ipsum a arcu cursus vitae congue mauris rhoncus. Id semper risus in hendrerit gravida rutrum quisque. Sed tempus urna et pharetra. Venenatis cras sed felis eget velit aliquet. Facilisi morbi tempus iaculis urna id volutpat lacus.
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">We see a clear trend that as poverty rate increases, average age of mothers decreases. Counties with the highest maternal morbidity rates have a lower average number of prenatal visits.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">Doña Ana County, New Mexico, stands out with the highest maternal morbidity rate of 12.37%, and also has a poverty rate of 27.18%. Interestingly, the county with the second highest maternal morbidity rate, Williamson County, Tennessee with a rate of 8.96%, has a much lower poverty rate of 4.57%. Both Doña Ana County and Williamson County have an average of about 11 prenatal visits. However, many counties with lower average numbers of prenatal visits have far lower maternal morbidity rates than Doña Ana County and Williamson County.</p>
 
-Enim diam vulputate ut pharetra sit amet aliquam. Vehicula ipsum a arcu cursus vitae congue mauris rhoncus. Fringilla urna porttitor rhoncus dolor purus non enim. Amet nisl suscipit adipiscing bibendum est ultricies integer. Enim tortor at auctor urna nunc. Porta lorem mollis aliquam ut porttitor leo a diam sollicitudin. Mollis nunc sed id semper risus in hendrerit. Et malesuada fames ac turpis egestas integer. Enim neque volutpat ac tincidunt vitae semper quis lectus. Urna porttitor rhoncus dolor purus non enim. Odio facilisis mauris sit amet massa. Morbi enim nunc faucibus a pellentesque sit amet. Ullamcorper malesuada proin libero nunc. Dui sapien eget mi proin sed libero.</p>
-    <iframe src="figure300.html" width="100%" height="540px" style="border: none; margin-bottom: 0; padding-bottom: 0;"></iframe>
-    <p style="font-family: 'Times New Roman', serif; font-size: 12px; color: #737373; margin-left: 20px; margin-right: 220px; margin-top: 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Caption here with data sources blah blah blah.</p>
-    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam. Blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque. Quam pellentesque nec nam aliquam. Tempor orci dapibus ultrices in iaculis nunc sed augue. Non sodales neque sodales ut. Vitae justo eget magna fermentum iaculis. Elementum curabitur vitae nunc sed velit. Dignissim enim sit amet venenatis urna cursus eget nunc. Sem viverra aliquet eget sit amet tellus cras adipiscing enim. Turpis in eu mi bibendum. Etiam non quam lacus suspendisse faucibus. Massa id neque aliquam vestibulum morbi. Egestas maecenas pharetra convallis posuere morbi. Malesuada nunc vel risus commodo viverra maecenas accumsan lacus. Felis donec et odio pellentesque diam. Quis varius quam quisque id.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">Distance to clinics is one factor that impacts quality of prenatal care, and subsequently pregnancy outcomes. <a href="https://www.sciencedirect.com/science/article/pii/S0266613821003120" style="color: #dbbebe;">[10]</a> Play the animations below to investigate how the distance from patient home to clinic relates with number of prenatal visits and maternal morbidity rates.</p>
+    <div class="dropdown-container">
+        <label for="figure-select" style="display: none;">Choose a figure:</label>
+        <select id="figure-select" onchange="changeFigure()">
+            <option value="pennsylvaina.html">Select: Pennsylvania</option>
+            <option value="georgia.html">Select: Georgia</option>
+            <option value="california.html">Select: California</option>
+        </select>
+    </div>
 
-    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">v1</p>
+    <div class="figure-background">
+        <div class="figure-container" id="figure-container">
+            <!-- This will be filled dynamically based on the selection -->
+        </div>
+    </div>
 
-    <iframe src="http://localhost:61114" width="1000" height="700"></iframe>
-    <h1 style="font-family: 'Space Mono'; font-size: 24px; color: #c39999; margin-left: 40px;">methodology</h1>
-    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam. Blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque. Quam pellentesque nec nam aliquam. Tempor orci dapibus ultrices in iaculis nunc sed augue. Non sodales neque sodales ut. Vitae justo eget magna fermentum iaculis. Elementum curabitur vitae nunc sed velit. Dignissim enim sit amet venenatis urna cursus eget nunc. Sem viverra aliquet eget sit amet tellus cras adipiscing enim. Turpis in eu mi bibendum. Etiam non quam lacus suspendisse faucibus. Massa id neque aliquam vestibulum morbi. Egestas maecenas pharetra convallis posuere morbi. Malesuada nunc vel risus commodo viverra maecenas accumsan lacus. Felis donec et odio pellentesque diam. Quis varius quam quisque id.
+    <div class="caption-2">
+        <p style="font-family: 'Times New Roman', serif; font-size: 12px; color: #737373; margin-left: 20px; margin-right: 20px; margin-top: 10px; margin-bottom: 20px;"><b>Figure 2.</b> Distance to clinics is represented as the ratio of the total number of OB-GYN clinics and hospitals located within the county to the total area of the county in square miles. This data was collected from manual explorations of these nine counties on Google Earth. Average number of prenatal visits during pregnancy are found in the CDC's Births Data Summary. In the animations, the frequency of visits the patient makes to the clinic is scaled to begin at nine, meaning that for each county’s average number of pre-natal visit, every visit after the ninth visit is represented by one loop. Maternal morbidity rates are computed as the percentage of births resulting in a maternal death out of the total number of births in a county, based on data from the CDC's Births Data Summary.</p>
+    </div>
 
-Sit amet consectetur adipiscing elit pellentesque habitant morbi tristique. Non consectetur a erat nam. Pellentesque pulvinar pellentesque habitant morbi. Tristique senectus et netus et malesuada fames ac turpis egestas. Nisl pretium fusce id velit ut tortor pretium viverra suspendisse. Risus nec feugiat in fermentum posuere. Consequat semper viverra nam libero justo laoreet. Diam vulputate ut pharetra sit amet aliquam id. Nisl rhoncus mattis rhoncus urna neque viverra. Facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum. Ultrices vitae auctor eu augue ut lectus arcu bibendum. Rhoncus mattis rhoncus urna neque viverra justo nec ultrices. Pellentesque sit amet porttitor eget dolor. Cursus vitae congue mauris rhoncus aenean vel elit scelerisque mauris. Non tellus orci ac auctor augue mauris augue. Aliquet enim tortor at auctor urna nunc id.
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">In the example of three counties in Pennsylvania, we see that Northampton County has the shortest distance from home to clinic along with the highest number of prenatal visits and the lowest maternal morbidity rate. However, in the example of three counties in Georgia, Forsyth County has more prenatal visits than Clarke County, despite having a longer distance from home to clinic. Across all three sets, the counties with longer distances from home to clinic had the higher maternal morbidity rates, even when prenatal visits occurred more frequently.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">Unfortunately, an individual's race or ethnicity is a social determinant of health in the United States. Particularly, racism as a barrier to health equity can cause disparities in healthcare access and outcomes across racial and ethnic groups. <a href="https://www.cdc.gov/minority-health/racism-health/?CDC_AAref_Val=https://www.cdc.gov/minorityhealth/racism-disparities/index.html" style="color: #dbbebe;">[11]</a> To truly grasp the scope of maternal morbidity in this country, it's essential to examine data on race and ethnicity.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">The charts below visualize the racial demographics and maternal morbidity rates of counties, arranged in order of increasing maternal morbidity. Select a demographic group to view the statistics, and hover over a bar to see the data specific to that county.</p>
 
-Enim diam vulputate ut pharetra sit amet b aliquam. Vehicula ipsum a arcu cursus vitae congue mauris rhoncus. Fringilla urna porttitor rhoncus dolor purus non enim. Amet nisl suscipit adipiscing bibendum est ultricies integer. Enim tortor at auctor urna nunc. Porta lorem mollis aliquam ut porttitor leo a diam sollicitudin. Mollis nunc sed id semper risus in hendrerit. Et malesuada fames ac turpis egestas integer. Enim neque volutpat ac tincidunt vitae semper quis lectus. Urna porttitor rhoncus dolor purus non enim. Odio facilisis mauris sit amet massa. Morbi enim nunc faucibus a pellentesque sit amet. Ullamcorper malesuada proin libero nunc. Dui sapien eget mi proin sed libero.</p>
+
+     <div class="dropdown-container">
+        <label for="figure-select-2" style="display: none;">Choose a figure:</label>
+        <select id="figure-select-2" onchange="changeFigure2()">
+            <option value="3-black.html">Select: Black Population</option>
+            <option value="3-asian.html">Select: Asian Population</option>
+            <option value="3-latino.html">Select: Latino Population</option>
+            <option value="3-white.html">Select: White Population</option>
+            <option value="3-indigenous.html">Select: Indigenous Population</option>
+        </select>
+    </div>
+
+    <div class="figure-background">
+        <div class="figure-container-2" id="figure-container-2">
+            <!-- This will be filled dynamically based on the selection -->
+        </div>
+    </div>
+
+    <div class="caption">
+        <p style="font-family: 'Times New Roman', serif; font-size: 12px; color: #737373; margin-left: 20px; margin-right: 20px; margin-top: 10px; margin-bottom: 20px;"><b>Figure 3.</b> Population percentage of each racial group was calculated by dividing the number of people identifying as that racial group by the total number of people living in the county, based on data from the American Community Survey. Maternal morbidity rates are computed as the percentage of births resulting in a maternal death out of the total number of births in a county, based on data from the CDC's Births Data Summary. The dataset was filtered to include counties with a maternal morbidity of greater than 1%, to reduce the total number of counties displayed and make the charts more readable.</p>
+    </div>
+
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">This dataset does not appear to have correlations between the individual demographic groups visualized above and maternal morbidity. Peaks indicating a high percentage of a specific racial group tend to be randomly spread out across the chart, not associated with specific maternal morbidity rates.</p>
+
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">Research by the CDC estimates that certain racial groups face higher health risks <a href="https://www.cdc.gov/mmwr/volumes/73/wr/mm7309a3.htm" style="color: #dbbebe;">[12]</a>. To investigate these trends within maternal health, we’ll aggregate the percentage of the population identified as Black, Latino, and Indigenous per county to use as one metric. In addition, we’ll analyze the percentage of the population with a college degree and the median income of the county.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">Click and drag on the 3D scatterplot below to explore relationships between the three axes. Zoom in or out to visualize clusters, and hover over points to view county data.</p>
+
+    <div class="iframe-container">
+        <iframe src="3d.html" width="1310px" height="916px" style="border: none; margin: 0; padding-bottom: 0;"></iframe>
+    </div>
+
+    <div class="caption-4">
+        <p style="font-family: 'Times New Roman', serif; font-size: 12px; color: #737373; margin-left: 10px; margin-right: 10px; margin-top: 0px; margin-bottom: 20px;"><b>Figure 4.</b> The “Black/Latino/Indigenous Population” metric is the percentage of the total county population that identified as Black, Latino, or Indigenous based on data from the American Community Survey. The “College Educated Population” metric is the percentage of the total county population that holds a Bachelor’s degree, based on data from the American Community Survey. Median income of each county also comes from the American Community Survey. Maternal morbidity rates are computed as the percentage of births resulting in a maternal death out of the total number of births in a county, based on data from the CDC's Births Data Summary. Note that four outlier counties were removed from the dataset for improved axes scaling and readability of this plot. Those counties are: Doña Ana County, NM, Williamson County, TN, Schuylkill County, PA and Caroll County, MD.</p>
+    </div>
+
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">The data reveals a nuanced landscape: there is not a clear trend between the  percentage of college-educated residents and maternal morbidity rates, but maternal morbidity rates appear to drop in areas with higher Black, Latino, and Indigenous populations. Meanwhile, median income shows an upward trajectory alongside the college-educated population, yet this educational attainment seems to decrease as the Black/Latino/Indigenous population grows. These patterns, while apparent, underscore the complexity of the factors at play, suggesting that the relationships between these variables are more intricate than they initially appear.</p>
+
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">So, <i>can you survive childbirth in America?</i></p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">Select your county in the dropdown below to view maternal health metrics, including maternal morbidity. Alternatively, if your county is not on the list, you can make some predictions based on linear regression models trained on the data.</p>
+
+    <div class="iframe-container">
+        <iframe src="5.html" width="1465px" height="150px" style="border: none; margin: 0; padding-bottom: 0;"></iframe>
+    </div>
+
+    <div class="iframe-container-bottom">
+        <iframe src="6.html" width="1465px" height="150px" style="border: none; margin: 0; padding-bottom: 0;"></iframe>
+    </div>
+
+    <div class="caption">
+        <p style="font-family: 'Times New Roman', serif; font-size: 12px; color: #737373; margin-left: 20px; margin-right: 20px; margin-top: 0px; margin-bottom: 20px;"><b>Figure 5.</b> Two linear regression models were used to predict the average age of mothers from the college educated population and to predict the maternal morbidity rate from the median income. The maternal age prediction model had an R<sup>2</sup> value of 0.7189 while the maternal morbidity prediction model had an R<sup>2</sup> value of 0.0014. The “College Educated Population” metric is the percentage of the total county population that holds a Bachelor’s degree, based on data from the American Community Survey. Median income of each county also comes from the American Community Survey. Average age of mothers at childbirth is found in the CDC's Births Data Summary. Maternal morbidity rates are computed as the percentage of births resulting in a maternal death out of the total number of births in a county, based on data from the CDC's Births Data Summary.</p>
+    </div>
+
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">The first model predicts that the college educated population of a county is directly proportional to that county’s average age of mothers at childbirth. Interestingly, the second model predicts that as median income of a county increases, the maternal morbidity rate of that county also increases. However, the second model was only able to achieve a R<sup>2</sup> value of 0.0014. Training many different prediction models with various metrics as input data (including multiple metrics, instead of just one as above) did not lead to better results, suggesting that maternal morbidity is influenced by complex and multifaceted factors that are difficult to capture through straightforward modeling.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">The challenge of understanding and addressing maternal morbidity in the United States is far from straightforward. While certain patterns emerge, such as the relationship between education levels, income, and maternal health, these trends reveal the complexity of the issue rather than provide clear answers.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">These visualizations highlight the intricate interplay of social, economic, and healthcare factors that define maternal health outcomes. The path forward demands not only more sophisticated data analysis but also a commitment to systemic change—one that ensures all women, regardless of their background or where they live, can survive childbirth in the 21st century.</p>
+
+    <h1 style="font-family: 'Space Mono'; font-size: 24px; color: #c39999; margin-left: 40px; margin-top: 40px;">methodology</h1>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">The two primary datasets used in this project were the CDC’s Births Data Summary and the United States Census Bureau's American Community Survey (ACS). These two datasets each contain data collected at the county level, and can be combined through the unique FIPS code of each county. FIPS codes are used in the U.S. to link geographic areas at the state and county level. <a href="https://transition.fcc.gov/oet/info/maps/census/fips/fips.txt#:~:text=FIPS%20codes%20are%20numbers%20which,to%20which%20the%20county%20belongs." style="color: #dbbebe;">[12]</a> Throughout join operations across multiple tables in the Birth's Data Summary dataset, and join operations between the Birth's Data Summary dataset and the ACS dataset, the county FIPS code is used as the foreign key to accurately link the data.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">These datasets contain information across multiple years. I chose to examine data from the year 2018, as it was the most recent year recorded in the Births Data Summary dataset. I paired this data with the "5 Year Sample" 2017 data from the ACS dataset, based on the Census Bureau's recommendation that 5-year samples are the most reliable.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">While extensive, the Births Data Summary has some limitations. It does not include all counties, and counties included vary based on state. Some states, like California, Texas, and Florida have a high number of counties in the dataset, while other counties such as North Dakota, Montana, and Nebraska only have one or two counties represented. Additionally, the counties appear to center around urban areas. In addition to counties missing from the dataset, the counties included within the Births Data Summary dataset are missing data for some areas. For example, there are 626 total counties, but only 580 of those counties have recorded statistics on maternal deaths.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">To augment the concrete data in these two datasets, many metrics were manually calculated and some data was manually retrieved.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">I computed the maternal morbidity rate for each county as a morbidity percent, defined as the number of births resulting in a maternal death divided by the total number of births in that county, based on the Births Data Summary dataset. Poverty rate was calculated as the percentage of individuals in a county recorded as living at or below the poverty line, based on data from ACS. Racial demographic population percentages and college educated population percentage were also calculated from the county-level data in ACS.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">Classification of counties as urban or rural comes from a separate dataset, the 2020 United States Census. I also manually gathered data from Google Earth to create the distances in Figure 2, with distance to clinics represented as the ratio of the total number of OB-GYN clinics and hospitals located within the county to the total area of the county in square miles.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">Lastly, I created various linear regression models for predicting the average age of mothers and maternal morbidity rate for a county. Notably, while the article allows users to interact with a maternal morbidity prediction model trained on median income of counties, I tried out 10-15 other models with various training features that had similarly lackluster performances when tested.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 16px; color: #737373; margin-left: 40px; margin-right: 220px;">I’ve included relevant files used to create the data visualizations, as well as all the elements of this website, on my GitHub here.</p>
 
 
-    <img src="footer2.png" alt="Description of your image" style="width: 100%; display: block; margin: 0 auto;">
+
+
+
+
+
+
+    <h1 style="font-family: 'Space Mono'; font-size: 24px; color: #c39999; margin-left: 40px; margin-top: 40px;">references</h1>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 12px; color: #737373; margin-left: 40px; margin-right: 220px;"><b>1.</b> Worldwide Maternal Mortality Rates. <i>One Health Trust.</i> 2020.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 12px; color: #737373; margin-left: 40px; margin-right: 220px;"><b>2.</b> Maternal Mortality Rates in the United States. <i>CDC National Center for Health Statistics.</i> 2021.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 12px; color: #737373; margin-left: 40px; margin-right: 220px;"><b>3.</b> Kathy Katella. Maternal Mortality Is on the Rise: 8 Things To Know. <i>Yale Medicine.</i> 2023.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 12px; color: #737373; margin-left: 40px; margin-right: 220px;"><b>4.</b> Births Data Summary. <i>Centers for Disease Control.</i> 2024.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 12px; color: #737373; margin-left: 40px; margin-right: 220px;"><b>5.</b> American Community Survey. <i>United States Census Bureau.</i> 2024.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 12px; color: #737373; margin-left: 40px; margin-right: 220px;"><b>6.</b> Patricia A. Cavazos-Rehg et al. Maternal age and risk of labor and delivery complications. <i>Maternal and Child Health Journal.</i> 2014.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 12px; color: #737373; margin-left: 40px; margin-right: 220px;"><b>7.</b> Jana Diabelková et al. Adolescent Pregnancy Outcomes and Risk Factors. <i>International Journal of Environmental Research and Public Health.</i> 2023.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 12px; color: #737373; margin-left: 40px; margin-right: 220px;"><b>8.</b> Group Prenatal Care. <i>The American College of Obstetricians and Gynecologists.</i> 2018.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 12px; color: #737373; margin-left: 40px; margin-right: 220px;"><b>9.</b> Urban and Rural. <i>The United States Census Bureau.</i> 2020.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 12px; color: #737373; margin-left: 40px; margin-right: 220px;"><b>10.</b> Jean Grand-Guillaume-Perrenoud et al. Barriers and facilitators of maternal healthcare utilisation in the perinatal period among women with social disadvantage. <i>Midwifery.</i> 2022.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 12px; color: #737373; margin-left: 40px; margin-right: 220px;"><b>11.</b> Racism and Health. <i>Centers for Disease Control.</i> 2024.</p>
+    <p style="font-family: 'Space Mono', sans-serif; font-size: 12px; color: #737373; margin-left: 40px; margin-right: 220px;"><b>12.</b> Federal Information Processing System (FIPS) Codes for States and Counties. <i>Federal Communications Commission.</i> 2024.</p>
+    <img src="footer2.png" alt="Can you survive childbirth in America?" style="width: 100%; display: block; margin: 0 auto;">
+
+ <script>
+     function changeFigure() {
+            var selectedFigure = document.getElementById("figure-select").value;
+            var figureContainer = document.getElementById("figure-container");
+            figureContainer.innerHTML = '<object class="scaled-figure" type="text/html" data="' + selectedFigure + '" width="1000px" height="800px"></object>';
+        }
+
+        // Initialize with the first figure on page load
+        changeFigure();
+
+     function changeFigure2() {
+            var selectedFigure = document.getElementById("figure-select-2").value;
+            var figureContainer = document.getElementById("figure-container-2");
+            figureContainer.innerHTML = '<object class="scaled-figure-2" type="text/html" data="' + selectedFigure + '" width="1000px" height="1000px"></object>';
+        }
+
+        // Initialize with the first figure on page load
+        changeFigure2();
+
+</script>
+
 </body>
 </html>

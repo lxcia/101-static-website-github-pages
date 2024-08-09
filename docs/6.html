@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Maternal Health Metrics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+            color: #c39999;
+            background-color: #fff0f0;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            max-width: 100%; /* Ensure it doesn't exceed iframe width */
+            max-height: 200px;
+        }
+        .label {
+            margin-right: 0px;
+            font-size: 14px;
+        }
+        .box, select {
+            border: 2px solid #c39999;
+            padding: 10px;
+            margin-left: 5px;
+            margin-right: 8px;
+            width: 80px;
+            height: 39px;
+            background-color: #fff;
+            text-align: center;
+            border-radius: 10px;
+            box-sizing: border-box;
+            display: flex; /* Added for Flexbox alignment */
+            align-items: center; /* Vertically center text */
+            justify-content: center; /* Horizontally center text */
+        }
+        .box-fill {
+            border: 2px solid #c39999;
+            padding: 10px;
+            margin-left: 5px;
+            margin-right: 8px;
+            width: 80px;
+            height: 36px;
+            background-color: #fff;
+            text-align: center;
+            border-radius: 10px;
+            box-sizing: border-box;
+            display: flex; /* Added for Flexbox alignment */
+            align-items: center; /* Vertically center text */
+            justify-content: center; /* Horizontally center text */
+        }
+        .box-fill p {
+            font-size: 13px; /* Change this to your desired box text font size */
+        }
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            color: #c39999;
+        }
+        .wrapper {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <p>Predict Maternal Health Metrics</p>
+        <div class="container">
+            <label for="county-select" class="label"><b>🔎 Select - College Educated Population:</b></label>
+            <select id="county-select" onchange="updateCountyData()">
+                <!-- Options will be populated by JavaScript -->
+            </select>
+
+            <label for="county-morbidity-value" class="label">Predict - Average Age of Mothers:</label>
+            <div class="box-fill" id="county-maternal-morbidity">
+                <p id="county-morbidity-value"></p>
+            </div>
+
+            <label for="state-select" class="label"><b>🔎 Select - Median Income:</b></label>
+            <select id="state-select" onchange="updateStateData()">
+                <!-- Options will be populated by JavaScript -->
+            </select>
+
+            <label for="state-morbidity-value" class="label">Predict - Maternal Morbidity Rate:</label>
+            <div class="box-fill" id="state-maternal-morbidity">
+                <p id="state-morbidity-value"></p>
+            </div>
+        </div>
+        <script>
+            // Data
+            const countyData = {
+                'county_name': ['1%', '2%', '3%', '4%', '5%', '6%', '7%', '8%', '9%', '10%', '11%', '12%', '13%', '14%', '15%', '16%', '17%', '18%', '19%', '20%', '21%', '22%', '23%', '24%', '25%', '26%', '27%', '28%', '29%', '30%', '31%', '32%', '33%', '34%', '35%', '36%', '37%', '38%', '39%', '40%'],
+                'Maternal Morbidity Rate': [25.42, 25.72, 26.02, 26.32, 26.61, 26.91, 27.21, 27.51, 27.81, 28.1, 28.4, 28.7, 29.0, 29.3, 29.59, 29.89, 30.19, 30.49, 30.79, 31.08, 31.38, 31.68, 31.98, 32.28, 32.57, 32.87, 33.17, 33.47, 33.77, 34.06, 34.36, 34.66, 34.96, 35.26, 35.56, 35.85, 36.15, 36.45, 36.75, 37.05]
+            };
+
+            const stateData = {
+                'state_name': ['$20,000', '$25,000', '$30,000', '$35,000', '$40,000', '$45,000', '$50,000', '$55,000', '$60,000', '$65,000', '$70,000', '$75,000', '$80,000', '$85,000', '$90,000', '$95,000', '$100,000', '$105,000', '$110,000', '$115,000', '$120,000', '$125,000', '$130,000', '$135,000', '$140,000', '$145,000', '$150,000'],
+                'Maternal Morbidity Rate': ['1.39%', '1.4%', '1.4%', '1.41%', '1.42%', '1.43%', '1.44%', '1.45%', '1.46%', '1.47%', '1.48%', '1.49%', '1.5%', '1.51%', '1.52%', '1.53%', '1.54%', '1.55%', '1.56%', '1.57%', '1.58%', '1.59%', '1.6%', '1.61%', '1.62%', '1.63%', '1.64%']
+            };
+
+            // Populate county dropdown
+            const countySelect = document.getElementById('county-select');
+            countyData['county_name'].forEach((county, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = county;
+                countySelect.appendChild(option);
+            });
+
+            // Populate state dropdown
+            const stateSelect = document.getElementById('state-select');
+            stateData['state_name'].forEach((state, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = state;
+                stateSelect.appendChild(option);
+            });
+
+            // Automatically select the first county and state
+            countySelect.selectedIndex = 0;
+            stateSelect.selectedIndex = 0;
+            updateCountyData();
+            updateStateData();
+
+            // Update county data function
+            function updateCountyData() {
+                const selectedIndex = countySelect.value;
+                const maternalMorbidity = countyData['Maternal Morbidity Rate'][selectedIndex];
+                document.getElementById('county-morbidity-value').textContent = maternalMorbidity;
+            }
+
+            // Update state data function
+            function updateStateData() {
+                const selectedIndex = stateSelect.value;
+                const maternalMorbidity = stateData['Maternal Morbidity Rate'][selectedIndex];
+                document.getElementById('state-morbidity-value').textContent = maternalMorbidity;
+            }
+        </script>
+    </div>
+</body>
+</html>
